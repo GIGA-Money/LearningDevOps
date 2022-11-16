@@ -12,6 +12,7 @@ Log for 11/15/22
 * got some basic aliases going.
 
 Alias key:
+
 0. tree = log --graph --decorate --pretty=oneline --abbrev-commit
 1. cc = Checkout -
 2. s = status -s 
