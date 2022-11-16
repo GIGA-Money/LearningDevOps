@@ -12,8 +12,10 @@ Log for 11/15/22
 * got some basic aliases going.
 
 Alias key:
+0. tree = log --graph --decorate --pretty=oneline --abbrev-commit
 1. cc = Checkout -
 2. s = status -s 
     * (going with the short side, don't really need the big indicators, and keeps the bash cleaner)
 3. cm = commit -m
+4. cam - commit -a -m
 * nothing crazy, will want to keep this key up. I am using these on the global level, shouldn't be to hard to manage.
