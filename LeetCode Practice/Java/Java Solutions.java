@@ -47,3 +47,51 @@ class Solution {
         return returnWealth[returnWealth.length - 1];
     }
 }
+
+/*
+Number of Steps to Reduce a Number to Zero
+date 11/18/22
+*/
+class Solution {
+    public int numberOfSteps(int num) {
+        int stepCount = 0;
+        while (num != 0){
+            if ((num % 2 ) == 0){
+                num /= 2;
+                ++stepCount;
+            }
+            else{
+                --num;
+                ++stepCount;
+            }
+        }
+        return stepCount; 
+    }
+}
+
+/*
+FizzBuzz
+date: 11/18/22
+*/
+class Solution {
+    public List<String> fizzBuzz(int n) {
+        List<String> retStr = new ArrayList<String>();
+        if (n == 1){
+            retStr.add(Integer.toString(n));
+            return retStr;
+        }
+        int iter = 1;
+        while (iter <= n){
+            if ((iter % 3) == 0 && (iter % 5) == 0)
+                retStr.add("FizzBuzz");
+            else if ((iter % 5) == 0)
+                 retStr.add("Buzz");
+            else if ((iter % 3) == 0)
+                retStr.add("Fizz");
+            else
+                retStr.add(Integer.toString(iter));
+            ++iter;
+        }
+        return retStr;
+    }
+}

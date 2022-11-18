@@ -1,4 +1,8 @@
 # Resuming the jourey that took a pause
+Log 11/18/22
+* LeetCode practice on "number of steps to reduce a number to Zero"
+* and "FizzBuzz"
+
 Log for 11/17/22
 * been doing some LeetCode Practice, days this doesn't get progress, did suff on LeetCode.
 * I'll upload those snips to a file in this folder, just to get some contributions going on github.

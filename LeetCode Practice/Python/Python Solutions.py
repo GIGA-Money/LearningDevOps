@@ -27,3 +27,41 @@ class Solution:
         for x in accounts:
             maxList.append(sum(x))
         return max(maxList) 
+
+
+# Number of Steps to Reduce a Number to Zero
+# date 11/18/22
+
+class Solution:
+    def numberOfSteps(self, num: int) -> int:
+        stepCount = 0
+        while num != 0:
+            if (num  % 2) == 0:
+                num /= 2
+                stepCount += 1
+            else:
+                num -= 1
+                stepCount += 1
+        return stepCount
+
+# FizzBuzz
+# Date 11/18/22
+
+class Solution:
+    def fizzBuzz(self, n: int) -> List[str]:    
+        retStr = []
+        if n == 1:
+            retStr.append(str(n))
+            return retStr
+        iter = 1
+        while iter <= n:
+            if (iter % 3) == 0 and (iter % 5) == 0:
+                retStr.append("FizzBuzz") 
+            elif (iter % 5) == 0:
+                retStr.append("Buzz")
+            elif (iter % 3) == 0:
+                retStr.append("Fizz")
+            else:
+                retStr.append(str(iter))
+            iter += 1
+        return retStr

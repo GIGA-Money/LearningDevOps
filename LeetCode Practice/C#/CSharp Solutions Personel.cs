@@ -45,3 +45,51 @@ public class Solution {
         return returnWealth.Last();
     }
 }
+
+/*
+Number of Steps to Reduce a Number to Zero
+date 11/18/22
+*/
+public class Solution {
+    public int NumberOfSteps(int num) {
+        int stepCount = 0;
+        while (num != 0){
+            if ((num % 2 ) == 0){
+                num /= 2;
+                ++stepCount;
+            }
+            else{
+                --num;
+                ++stepCount;
+            }
+        }
+        return stepCount;
+    }
+}
+
+/*
+FizzBuzz
+date: 11/18/22
+*/
+public class Solution {
+    public IList<string> FizzBuzz(int n) {
+        IList<string> retStr = new List<string>();
+        if (n == 1){
+            retStr.Add(n.ToString());
+            return retStr;
+        }
+        int iter = 1;
+        while (iter <= n){
+            if ((iter % 3) == 0 && (iter % 5) == 0)
+                retStr.Add("FizzBuzz");
+            else if ((iter % 5) == 0)
+                 retStr.Add("Buzz");
+            else if ((iter % 3) == 0)
+                retStr.Add("Fizz");
+            else
+                retStr.Add(iter.ToString());
+            ++iter;
+        }        
+        return retStr;
+    }
+}

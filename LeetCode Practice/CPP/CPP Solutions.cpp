@@ -49,3 +49,92 @@ public:
         return *std::max_element(maxList.begin(), maxList.end());
     }
 };
+
+
+/*
+Number of Steps to Reduce a Number to Zero
+date 11/18/22
+*/
+
+class Solution {
+public:
+    int numberOfSteps(int num) {
+        int stepCount = 0;
+        while (num != 0){
+            if ((num % 2 ) == 0){
+                num /= 2;
+                ++stepCount;
+            }
+            else{
+                --num;
+                ++stepCount;
+            }
+        }
+        return stepCount;
+    }
+};
+
+/*
+Number of Steps to Reduce a Number to Zero
+*/
+/* a solution from "mizardx" on leet code, walking through the bitwise solution.
+```Here is a expanded version,
+without built-in functions.
+Speed is dependant upon size of integer (32 bits in this case),
+not the value itself.
+```
+if (num == 0) return 0;
+// Bitcount of num
+int n = num;
+n = ((n&~0x55555555)>>1) + (n&0x55555555); // 10
+n = ((n&~0x33333333)>>2) + (n&0x33333333); // _100
+n = ((n&~0x0F0F0F0F)>>4) + (n&0x0F0F0F0F); // ____1000
+n += n >> 8; // ___10000
+n += n >> 16; // // __100000
+n &= 0x3F;
+// Copy all ones rightwards. 00101001 -> 00111111 (Not exactly clz, but close enough)
+int m = num;
+m |= m >> 1;
+m |= m >> 2;
+m |= m >> 4;
+m |= m >> 8;
+m |= m >> 16;
+// Bitcount again
+m = ((m&~0x55555555)>>1) + (m&0x55555555); // 10
+m = ((m&~0x33333333)>>2) + (m&0x33333333); // _100
+m = ((m&~0x0F0F0F0F)>>4) + (m&0x0F0F0F0F); // ____1000
+m += m >> 8; // ___10000
+m += m >> 16; // // __100000
+m &= 0x3F;
+return m + n - 1;
+*/
+
+/*
+FizzBuzz
+date: 11/18/22
+*/
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector<string> retStr = {};
+        if (n == 1){
+            retStr.push_back(std::to_string(n));
+            return retStr;
+        }
+        int iter = 1;
+        while (iter <= n){
+            if ((iter % 3) == 0 && (iter % 5) == 0)
+                retStr.push_back("FizzBuzz");
+            else if ((iter % 5) == 0)
+                 retStr.push_back("Buzz");
+            else if ((iter % 3) == 0)
+                retStr.push_back("Fizz");
+            else
+                retStr.push_back(std::to_string(iter));
+            
+            ++iter;
+        }
+        
+        return retStr;
+    }
+};
