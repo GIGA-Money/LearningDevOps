@@ -1,3 +1,9 @@
+# === This is my .gitignore file === 
+# Ignore temp files 
+*.tmp
+
+# most of the git ignore comes from other repos, wish I had kept track of which. :D.
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
