@@ -1,4 +1,10 @@
 # Resuming the jourey that took a pause
+Log for 11/17/22
+* been doing some LeetCode Practice, days this doesn't get progress, did suff on LeetCode.
+* I'll upload those snips to a file in this folder, just to get some contributions going on github.
+* Doing those in Py3, CPP, Java, and C# (plus exteral ones were available).
+* Going for breath and learning language features rather than quanity of practices.
+
 Log for 11/15/22
 * Got a VBox with basic win 10 loaded up and ready to go. 
 * Dont want to run into the issue I did on another machine, were I stacked to whole base OS with dev tools that I couldn't manage properly. 
@@ -7,12 +13,6 @@ Log for 11/15/22
 * Asked around, and looks like others are willing to help if one would just ask.
 * good thing GIT never changes.
 * got some basic aliases going.
-
-Log for 11/17/22
-* been doing some LeetCode Practice, days this doesn't get progress, did suff on LeetCode.
-* I'll upload those snips to a file in this folder, just to get some contributions going on github.
-* Doing those in Py3, CPP, Java, and C#.
-* Going for breath and learning language features rather than quanity of practices.
 
 ### Got some books in place
 * Git: Mastering Version Control, ISBN 978-1-78712-320-5
