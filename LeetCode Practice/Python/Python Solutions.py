@@ -83,7 +83,7 @@ class Solution:
         return max(storeList)
 
 # Middle of the Linked List 
-# Skipped PY version, odd useage of singly-linked list 
+# Skipped PY version, odd useage of singly-linked list by LC
 
 # Find Numbers with Even Number of Digits
 # 11/22/22

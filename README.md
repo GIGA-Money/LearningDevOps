@@ -1,4 +1,14 @@
 # Resuming the jourey that took a pause
+11/22/22
+* Have been religated to the LC practices for now:
+* Middle of the Linked List - failed on the PY example unfortunatly.
+* Max Consecutive Ones - terrible implementation, I have 2 if checks in my for loop. 
+    * dicussion answers use a max comparison solution, I've see it used in other examples, I should learn to pick it up.
+        * tool goes as such, in a comparison, have an incrementor start, perform the unfavored check.
+        * if the unfavored check fails, performed the storage with a max comparison.
+        * maxVal will always be saved and incrementor will restart.
+        * return maxVal.
+
 Log 11/18/22
 * LeetCode practice on "number of steps to reduce a number to Zero"
 * and "FizzBuzz"
