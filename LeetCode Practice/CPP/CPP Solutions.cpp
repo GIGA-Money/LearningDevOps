@@ -138,3 +138,63 @@ public:
         return retStr;
     }
 };
+
+/*
+Middle of the Linked List
+11/21/22
+*/
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        int iter = 0;
+        ListNode* cursor;
+        vector<ListNode*> cursorStore;
+        // length of LL;
+        for(cursor = head; cursor != NULL; cursor = cursor->next){
+            cursorStore.push_back(cursor);
+            ++iter;
+        }
+        //divide by 2 to get middle
+        iter /= 2;
+        return cursor = cursorStore[iter];
+    }
+};
+
+/*
+Max Consecutive Ones
+11/21/22
+*/
+class Solution {
+public:
+    int findMaxConsecutiveOnes(vector<int>& nums) {
+        vector<int> maxCount = {};
+        int counter = 0;
+        for (auto& j: nums){
+               if(j == 0)
+                   counter = 0;
+                else if(j == 1){
+                    maxCount.push_back(counter);
+                    ++counter;
+                }
+            maxCount.push_back(counter);
+            }
+        return *std::max_element(maxCount.begin(), maxCount.end());
+    }
+};
+
+/*
+Find Numbers with Even Number of Digits
+*/
+class Solution {
+public:
+    int findNumbers(vector<int>& nums) {
+        int count = 0;
+        string tempStr = " ";
+        for(auto& num : nums){
+            tempStr = std::to_string(num);
+            if((tempStr.length() % 2 ) == 0)
+                ++count;
+        }
+        return count;
+    }
+};

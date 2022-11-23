@@ -95,3 +95,42 @@ class Solution {
         return retStr;
     }
 }
+
+/*
+Middle of the Linked List
+11/21/22
+*/
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        ListNode cursor = head;
+        ArrayList<ListNode> cursorStore = new ArrayList<ListNode>();
+        int iter = 0;
+        for(cursor = head; cursor != null; cursor = cursor.next){
+            cursorStore.add(cursor);
+            ++iter;
+        }
+        iter /= 2;        
+        return cursor = cursorStore.get(iter);
+    }
+}
+
+/*
+Max Consecutive Ones
+11/21/22
+*/
+class Solution {
+    public int findMaxConsecutiveOnes(int[] nums) {
+        List<Integer> retStr = new ArrayList<Integer>();
+        int counter = 0;
+        for (int j : nums){
+            if (j == 0)
+                counter = 0;
+            else if (j == 1){
+                retStr.add(counter);
+                ++counter;
+            }
+            retStr.add(counter);
+        }
+        return Collections.max(retStr);
+    }
+}

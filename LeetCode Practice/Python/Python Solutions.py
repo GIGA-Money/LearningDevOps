@@ -65,3 +65,34 @@ class Solution:
                 retStr.append(str(iter))
             iter += 1
         return retStr
+
+
+# Max Consecutive Ones
+# 11/21/22
+class Solution:
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        storeList = []
+        counter = 0
+        for x in nums:
+            if x == 0:
+                counter = 0
+            elif x == 1:
+                storeList.append(counter)
+                counter += 1
+            storeList.append(counter)
+        return max(storeList)
+
+# Middle of the Linked List 
+# Skipped PY version, odd useage of singly-linked list 
+
+# Find Numbers with Even Number of Digits
+# 11/22/22
+class Solution:
+    def findNumbers(self, nums: List[int]) -> int:
+        count = 0
+        tempStr = " "
+        for num in nums:
+            tempStr = str(num)
+            if (len(tempStr) % 2) == 0:
+                count += 1        
+        return count

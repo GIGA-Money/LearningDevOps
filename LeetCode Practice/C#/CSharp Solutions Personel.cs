@@ -93,3 +93,43 @@ public class Solution {
         return retStr;
     }
 }
+
+
+/*
+Middle of the Linked List
+11/21/22
+*/
+public class Solution {
+    public ListNode MiddleNode(ListNode head) {
+        ListNode cursor;
+        List<ListNode> cursorStore = new List<ListNode>();
+        int iter = 0;
+         for(cursor = head; cursor != null; cursor = cursor.next){
+            cursorStore.Add(cursor);
+            ++iter;
+        }
+        iter /= 2;
+        return cursor = cursorStore[iter];
+    }
+}
+
+/*
+Max Consecutive Ones
+11/21/22
+*/
+public class Solution {
+    public int FindMaxConsecutiveOnes(int[] nums) {
+        List<int> retCnt = new List<int>();
+        int count = 0;
+        foreach(int index in nums){
+            if (index == 0)
+                count = 0;
+            else if (index == 1){
+                retCnt.Add(count);
+                ++count;
+            }
+            retCnt.Add(count);
+        }
+        return retCnt.Max();
+    }
+}
