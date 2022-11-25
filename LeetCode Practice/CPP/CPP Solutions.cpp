@@ -198,3 +198,20 @@ public:
         return count;
     }
 };
+
+/*
+Squares of a Sorted Arrayh
+11/23/22
+*/
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        int iter = 0;
+        for(auto& num : nums){
+            nums[iter] = pow(num,2);
+            ++iter;
+        }
+        std::sort(nums.begin(), nums.end());
+        return nums;
+    }
+};

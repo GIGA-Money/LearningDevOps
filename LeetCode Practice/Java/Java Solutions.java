@@ -134,3 +134,19 @@ class Solution {
         return Collections.max(retStr);
     }
 }
+
+/*
+Squares of a Sorted Arrayh
+11/23/22
+*/
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+        int iter = 0;
+        for(int num : nums){
+            nums[iter] = (int) Math.pow(num, 2);
+            ++iter;
+        }
+        Arrays.sort(nums);
+        return nums;
+    }
+}

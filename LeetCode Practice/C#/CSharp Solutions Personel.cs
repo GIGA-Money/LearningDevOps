@@ -133,3 +133,20 @@ public class Solution {
         return retCnt.Max();
     }
 }
+
+
+/*
+Squares of a Sorted Arrayh
+11/23/22
+*/
+public class Solution {
+    public int[] SortedSquares(int[] nums) {
+        int index = 0;
+        foreach(int num in nums){
+            nums[index] = num*num;
+            ++index;
+        }
+        Array.Sort(nums);
+        return nums;
+    }
+}

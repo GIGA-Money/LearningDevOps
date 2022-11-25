@@ -96,3 +96,15 @@ class Solution:
             if (len(tempStr) % 2) == 0:
                 count += 1        
         return count
+
+
+# Squares of a Sorted Arrayh
+# 11/23/22
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        index = 0
+        for num in nums:
+            nums[index] = num**2
+            index += 1
+        nums.sort()
+        return nums
