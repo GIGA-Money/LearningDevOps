@@ -150,3 +150,22 @@ class Solution {
         return nums;
     }
 }
+
+/*
+12/1/2022
+Remove Element
+*/
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        int i = 0;
+        int j = i;
+        for(;j < nums.length; ++j){
+            if (nums[j] != val)
+            {
+                nums[i] = nums[j];
+                ++i;
+            }
+        }
+        return i;
+    }
+}

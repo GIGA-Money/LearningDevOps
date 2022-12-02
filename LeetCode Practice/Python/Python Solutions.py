@@ -3,6 +3,7 @@
 
 # Running Sum of 1d Array
 # date: 11/16/22
+# %%
 class Solution:
     def runningSum(self, nums: List[int]) -> List[int]:   
         curNums = []
@@ -20,7 +21,7 @@ class Solution:
            
 # Richest Customer Wealth
 # date: 11/17/22
-
+# %%
 class Solution:
     def maximumWealth(self, accounts: List[List[int]]) -> int:
         maxList = []
@@ -31,7 +32,7 @@ class Solution:
 
 # Number of Steps to Reduce a Number to Zero
 # date 11/18/22
-
+# %%
 class Solution:
     def numberOfSteps(self, num: int) -> int:
         stepCount = 0
@@ -46,7 +47,7 @@ class Solution:
 
 # FizzBuzz
 # Date 11/18/22
-
+# %%
 class Solution:
     def fizzBuzz(self, n: int) -> List[str]:    
         retStr = []
@@ -69,6 +70,7 @@ class Solution:
 
 # Max Consecutive Ones
 # 11/21/22
+# %%
 class Solution:
     def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
         storeList = []
@@ -87,6 +89,7 @@ class Solution:
 
 # Find Numbers with Even Number of Digits
 # 11/22/22
+# %%
 class Solution:
     def findNumbers(self, nums: List[int]) -> int:
         count = 0
@@ -100,6 +103,7 @@ class Solution:
 
 # Squares of a Sorted Arrayh
 # 11/23/22
+# %%
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
         index = 0
@@ -108,3 +112,40 @@ class Solution:
             index += 1
         nums.sort()
         return nums
+
+# %%
+"""
+12/1/2022
+Remove Element
+
+Given a list and a to remove value.
+When the remove value is found, the fast pointer will be 2 ahead, so we'll move that value into the to remove position.
+The first (slow) pointer will represent new length of the list/array.
+The judgement uses this to check if the "new" list/array DOESNOT have the to remove value, not if the full array/list has the value or not.
+As the remove value is hit, we move the fast pointer to the slow pointer and increment both pointers,
+and repeat till at the end of the list.
+Internal dialog:
+* looks like this question had most languages in mind when designed.
+* need to capture the 2 pointer with arrays idea, I started to use it but could grable with the concept.
+"""
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        i = 0
+        for j in range(len(nums)):
+            if nums[j] != val:
+                nums[i] = nums[j]
+                i+=1         
+        return i
+
+# %% 
+"""
+12/1/2022
+Remove Element
+ALT
+"""
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        while val in nums:
+            nums.remove(val)
+        return len(nums)        
+# %%

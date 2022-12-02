@@ -49,3 +49,25 @@ var numberOfSteps = function(num) {
         }
         return stepCount;
 };
+
+/*
+12/1/2022
+Remove Element
+*/
+/**
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
+ var removeElement = function(nums, val) {
+    var i = 0;
+    var j = i;
+    for(;j < nums.length; ++j){
+        if (nums[j] != val)
+        {
+            nums[i] = nums[j];
+            ++i;
+        }
+    }
+    return i;
+};

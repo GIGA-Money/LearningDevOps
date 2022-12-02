@@ -27,7 +27,6 @@ public class Solution {
 Richest Customer Wealth
 date: 11/17/22
 */
-	
 public class Solution {
     public int MaximumWealth(int[][] accounts) {
         int[] returnWealth = new int[accounts.GetLength(0)];
@@ -94,7 +93,6 @@ public class Solution {
     }
 }
 
-
 /*
 Middle of the Linked List
 11/21/22
@@ -134,7 +132,6 @@ public class Solution {
     }
 }
 
-
 /*
 Squares of a Sorted Arrayh
 11/23/22
@@ -148,5 +145,23 @@ public class Solution {
         }
         Array.Sort(nums);
         return nums;
+    }
+}
+
+/*
+12/1/2022
+Remove Element
+*/
+public class Solution {
+    public int RemoveElement(int[] nums, int val) {
+        int i = 0;
+        int j = i;
+        for(; j < nums.Length; ++j){
+            if (nums[j] != val) {
+                nums[i] = nums[j];
+                ++i;
+            }
+        }
+        return i;
     }
 }

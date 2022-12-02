@@ -22,3 +22,20 @@ function numberOfSteps(num: number): number {
         }
         return stepCount;
 };
+
+/*
+12/1/2022
+Remove Element
+*/
+function removeElement(nums: number[], val: number): number {
+    var i = 0;
+    var j = i;
+    for(;j < nums.length; ++j){
+        if (nums[j] != val)
+        {
+            nums[i] = nums[j];
+            ++i;
+        }
+    }
+    return i;
+};
