@@ -149,3 +149,57 @@ class Solution:
             nums.remove(val)
         return len(nums)        
 # %%
+
+"""
+12/02/2022
+remove duplicates
+"""
+# %%
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if nums[-1] == nums[0]:
+            return 1
+        i = 0
+        for j in range(len(nums)):
+            if nums[j] != nums[i-1]:
+                nums[i] = nums[j]
+                i += 1  
+        return i
+# %%
+
+"""
+12/06/2022
+Check If N and Its Double Exist
+"""
+# %%
+"""
+this can't handle the cases of 0,0,1.
+        for i in range(len(arr)):
+            if arr[i] == 0:
+                print(arr[i])
+                continue
+            for j in range(len(arr)):
+                if (arr[j] + arr[j]) == arr[i]:
+                    if arr[j] == 0:
+                        print(arr[j])
+                        continue
+                    else:
+                        return True
+        return False
+"""
+class Solution:
+    def checkIfExist(self, arr: List[int]) -> bool:
+        arrSet = set()
+        for i in arr:
+            if float(i)/2 in arrSet or i * 2 in arrSet:
+                return True
+            arrSet.add(i)
+        return False
+
+# the corrected version:
+class Solution:
+    def checkIfExist(self, arr: List[int]) -> bool:
+        for i in range(len(arr)):
+            for j in range(len(arr)):
+                if i != j and arr[i] * 2 == arr[j]:
+                    return True

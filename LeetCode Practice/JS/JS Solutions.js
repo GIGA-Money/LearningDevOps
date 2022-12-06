@@ -71,3 +71,47 @@ Remove Element
     }
     return i;
 };
+
+/*
+ * 12/02/2022
+ * remove duplicates
+*/
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var removeDuplicates = function(nums) {
+    if (nums.size == 0)
+            return 0;
+    if (nums[nums.length - 1]  == nums[0])
+        return 1;
+    var i = 0;
+        for(var j = 1; j < nums.length; ++j){
+            if(nums[j] == nums[j-1])
+                ++i;
+            else
+                nums[j-i] = nums[j];
+         }
+        return nums.length - i;
+};
+
+/*
+12/06/2022
+Check If N and Its Double Exist
+*/
+/**
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+ var checkIfExist = function(arr) {
+    var i = 0;
+    var j = i;
+    for(; i < arr.length; ++i){
+        for(; j < arr.length; ++j){
+            if (i != j & arr[i] * 2 == arr[j])
+                return true;
+        }
+        j = 0;
+    }                    
+    return false;
+};

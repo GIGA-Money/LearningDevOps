@@ -169,3 +169,41 @@ class Solution {
         return i;
     }
 }
+
+/*
+ * 12/02/2022
+ * remove duplicates
+*/
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        if (nums.length == 0)
+            return 0;
+        int i = 0;
+        if (nums[nums.length - 1] == nums[i])
+            return ++i;
+         for(int j = 1; j < nums.length; ++j){
+             if(nums[j] == nums[j-1]) ++i;
+             else nums[j-i] = nums[j];
+         }
+        return nums.length - i;
+    }
+}
+
+/*
+12/06/2022
+Check If N and Its Double Exist
+*/
+class Solution {
+    public boolean checkIfExist(int[] arr) {
+        int i = 0;
+        int j = i;
+        for(; i < arr.length; ++i){
+            for(; j < arr.length; ++j){
+                if (i != j & arr[i] * 2 == arr[j])
+                    return true;
+            }
+            j = 0;
+        }                    
+        return false;
+    }
+}

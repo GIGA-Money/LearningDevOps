@@ -165,3 +165,45 @@ public class Solution {
         return i;
     }
 }
+
+/*
+ * 12/02/2022
+ * remove duplicates
+*/
+public class Solution {
+    public int RemoveDuplicates(int[] nums) {
+        if (nums.Length == 0)
+            return 0;
+        int i = 0;
+        if (nums.Last() == nums[i])
+            return ++i;
+        
+         for(int j = 1; j < nums.Length; ++j){
+             if(nums[j] == nums[j-1])
+                 ++i;
+             else
+                 nums[j-i] = nums[j];
+         }
+        return nums.Length - i;
+    }
+}
+
+
+/*
+12/06/2022
+Check If N and Its Double Exist
+*/
+public class Solution {
+    public bool CheckIfExist(int[] arr) {
+        int i = 0;
+        int j = i;
+        for(; i < arr.Length; ++i){
+            for(; j < arr.Length; ++j){
+                if (i != j & arr[i] * 2 == arr[j])
+                    return true;
+            }
+            j = 0;
+        }                    
+        return false;
+    }
+}

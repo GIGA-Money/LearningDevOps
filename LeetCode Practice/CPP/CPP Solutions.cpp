@@ -233,3 +233,46 @@ public:
         return i;
     }
 };
+
+/*
+ * 12/02/2022
+ * remove duplicates
+*/
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if (nums.size() == 0)
+            return 0;
+                
+        int i = 0;
+        if (nums.back() == nums[i])
+            return ++i;
+        
+       for(int j = 1; j < nums.size(); ++j){
+           if(nums[j] == nums[j-1]){
+               ++i;
+           }
+           else{
+                nums[j-i] = nums[j];
+           }
+        }
+        return nums.size()-i;
+    }
+};
+
+/*
+12/06/2022
+Check If N and Its Double Exist
+*/
+class Solution {
+public:
+    bool checkIfExist(vector<int>& arr) {
+        int i = 0;
+        for(; i < arr.size(); ++i)
+            for(int j = 0; j < arr.size(); ++j)
+                if (i != j & arr[i] * 2 == arr[j])
+                return true;
+        return false;
+    }
+};
+
