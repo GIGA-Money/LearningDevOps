@@ -286,3 +286,23 @@ public:
         return i > 0 && i == j && j < size - 1;
     }
 };
+
+/*
+Replace elements with greatest element on right side
+12/29/22
+*/
+class Solution {
+public:
+    vector<int> replaceElements(vector<int>& arr) {
+         if(arr.size() <= 1){
+            arr.clear();
+            arr.push_back(-1);
+            return arr;
+        }
+        int max = -1;
+        for(int i =  arr.size() - 1; i >= 0; --i){
+            max = std::max(max, exchange(arr[i], max));
+        }
+        return arr;
+    }
+};

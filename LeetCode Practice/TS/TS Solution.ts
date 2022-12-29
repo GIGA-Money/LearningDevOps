@@ -86,3 +86,21 @@ function validMountainArray(arr: number[]): boolean {
     while(j > 0 && arr[j-1] > arr[j]) --j;
     return i > 0 && i == j && j < size - 1;
 };
+
+/*
+Replace elements with greatest element on right side
+12/29/22
+*/
+function replaceElements(arr: number[]): number[] {
+    if(arr.length <= 1){
+        arr[0] = -1;
+        return arr;
+        }
+    var actual, max = -1;
+    for(var i =  arr.length - 1; i >= 0; --i){
+        actual = arr[i];
+        arr[i] = max;
+        max = Math.max(actual, max);
+    }
+    return arr;
+};

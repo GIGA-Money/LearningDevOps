@@ -218,3 +218,23 @@ class Solution {
         return i > 0 && i == j && j < size - 1;
     }
 }
+
+/*
+Replace elements with greatest element on right side
+12/29/22
+*/
+class Solution {
+    public int[] replaceElements(int[] arr) {
+        if(arr.length <= 1){
+            Arrays.fill(arr, -1);
+            return arr;
+        }
+        int actual, max = -1;
+        for(int i =  arr.length - 1; i >= 0; --i){
+            actual = arr[i];
+            arr[i] = max;
+            max = Math.max(actual, max);
+        }
+        return arr;
+    }
+}

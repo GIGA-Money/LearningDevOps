@@ -220,3 +220,23 @@ public class Solution {
         return i > 0 && i == j && j < size - 1;
     }
 }
+
+/*
+Replace elements with greatest element on right side
+12/29/22
+*/
+public class Solution {
+    public int[] ReplaceElements(int[] arr) {
+         if(arr.Length <= 1){
+            Array.Fill(arr, -1);
+            return arr;
+        }
+        int actual, max = -1;
+        for(int i =  arr.Length - 1; i >= 0; --i){
+            actual = arr[i];
+            arr[i] = max;
+            max = Math.Max(actual, max);
+         }
+        return arr;
+    }
+}

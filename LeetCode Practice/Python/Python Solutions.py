@@ -218,3 +218,42 @@ class Solution:
             if arr[i-1] >= arr[i] <= arr[i+1]:
                 bottom += 1
         return top == 1 and bottom == 0
+
+'''
+Replace elements with greatest element on right side
+12/29/22
+'''
+class Solution:
+    def replaceElements(self, arr: List[int]) -> List[int]:
+        if len(arr) <= 1:
+            arr[:] = [-1]
+            return arr
+        
+        curMax = -1
+        for i in range(len(arr) - 1, -1, -1):
+            actual = arr[i]
+            arr[i] = curMax
+            curMax = max(curMax, actual)
+            
+        return arr
+        '''
+        maxIndex = arr.index(max(arr))
+        tempArr = arr[arr.index(max(arr))+1: len(arr)]
+        
+        trackIndex = 0
+        while trackIndex != tempArr.index(max(tempArr)):
+            trackIndex += 1
+        
+        toIndex = 0
+        while toIndex != trackIndex:
+            tempArr[toIndex] = max(tempArr)
+            toIndex += 1    
+        print(tempArr)
+
+        toIndex = 0
+        for i in range(len(tempArr)):
+            arr[maxIndex+toIndex] = tempArr[i]
+            toIndex += 1
+        arr.append(-1)
+        #print(arr)
+        '''
