@@ -207,3 +207,16 @@ public class Solution {
         return false;
     }
 }
+
+/*
+12/28/22
+Valid Mountain Array
+*/
+public class Solution {
+    public bool ValidMountainArray(int[] arr) {
+        int size = arr.Length, i = 0, j = size - 1;
+        while(i + 1 < size && arr[i] < arr[i+1]) ++i;
+        while(j > 0 && arr[j-1] > arr[j]) --j;
+        return i > 0 && i == j && j < size - 1;
+    }
+}

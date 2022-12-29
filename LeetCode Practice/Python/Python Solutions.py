@@ -203,3 +203,18 @@ class Solution:
             for j in range(len(arr)):
                 if i != j and arr[i] * 2 == arr[j]:
                     return True
+
+
+'''
+12/28/22
+Valid Mountain Array
+'''
+class Solution:
+    def validMountainArray(self, arr: List[int]) -> bool:
+        top, bottom, = 0, 0
+        for i in range(1, len(arr) - 1):
+            if arr[i-1] < arr[i] > arr[i+1]:
+                top += 1
+            if arr[i-1] >= arr[i] <= arr[i+1]:
+                bottom += 1
+        return top == 1 and bottom == 0

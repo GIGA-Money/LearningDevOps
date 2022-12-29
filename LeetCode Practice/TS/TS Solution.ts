@@ -75,3 +75,14 @@ function checkIfExist(arr: number[]): boolean {
     }                    
     return false;
 };
+
+/*
+12/28/22
+Valid Mountain Array
+*/
+function validMountainArray(arr: number[]): boolean {
+    var size = arr.length, i = 0, j = size - 1;
+    while(i + 1 < size && arr[i] < arr[i+1]) ++i;
+    while(j > 0 && arr[j-1] > arr[j]) --j;
+    return i > 0 && i == j && j < size - 1;
+};

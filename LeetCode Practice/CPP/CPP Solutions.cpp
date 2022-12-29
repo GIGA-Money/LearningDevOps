@@ -6,7 +6,6 @@ Problems from LeetCode
 Running Sum of 1d Array
 date: 11/16/22
 */
-
 class Solution {
 public:
     vector<int> runningSum(vector<int>& nums) {
@@ -33,7 +32,6 @@ public:
 Richest Customer Wealth
 date: 11/17/22
 */
-
 class Solution {
 public:
     int maximumWealth(vector<vector<int>>& accounts) {
@@ -55,7 +53,6 @@ public:
 Number of Steps to Reduce a Number to Zero
 date 11/18/22
 */
-
 class Solution {
 public:
     int numberOfSteps(int num) {
@@ -276,3 +273,16 @@ public:
     }
 };
 
+/*
+12/28/22
+Valid Mountain Array
+*/
+class Solution {
+public:
+    bool validMountainArray(vector<int>& arr) {
+        int size = arr.size(), i = 0, j = size - 1;
+        while(i+1 < size && arr[i] < arr[i+1]) ++i;
+        while(j > 0 && arr[j-1] > arr[j]) --j;
+        return i > 0 && i == j && j < size - 1;
+    }
+};

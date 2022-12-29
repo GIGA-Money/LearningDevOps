@@ -6,7 +6,6 @@ Problems from LeetCode
 Running Sum of 1d Array
 date: 11/16/22
 */
-
 class Solution {
     public int[] runningSum(int[] nums) {
         int simpleReturn[] = nums;
@@ -29,7 +28,6 @@ class Solution {
 Richest Customer Wealth
 date: 11/17/22
 */
-
 class Solution {
     public int maximumWealth(int[][] accounts) {
         int[] returnWealth = new int[accounts.length + 1];
@@ -205,5 +203,18 @@ class Solution {
             j = 0;
         }                    
         return false;
+    }
+}
+
+/*
+12/28/22
+Valid Mountain Array
+*/
+class Solution {
+    public boolean validMountainArray(int[] arr) {
+        int size = arr.length, i = 0, j = size - 1;
+        while(i + 1 < size && arr[i] < arr[i+1]) ++i;
+        while(j > 0 && arr[j-1] > arr[j]) --j;
+        return i > 0 && i == j && j < size - 1;
     }
 }
