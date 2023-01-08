@@ -21,11 +21,11 @@ Log 11/18/22
 Log for 11/17/22
 * been doing some LeetCode Practice, days this doesn't get progress, did stuff on LeetCode.
 * I'll upload those snips to a file in this folder, just to get some contributions going on github.
-* Doing those in Py3, CPP, Java, and C# (plus enteral ones were available).
+* Doing those in Py3, CPP, Java, and C# (plus extra languages ones when able).
 * Going for breath and learning language features rather than quantity of practices.
 
 Log for 11/15/22
-* Got a VBox with basic win 10 loaded up and ready to go. 
+* Got a VBox with basic win 10 loaded up and ready to go. (mmmmmm might become to difficult to manage.)
 * I do not want to run into the issue I did on another machine, were I stacked to whole base OS with dev tools that I couldn't manage properly.
 * will need to get WSL up and funning, turned it on in the feature section, but didn't download anything quite yet, might give it a few or just use the VM.
 * Did reach out to a potential mentor for help.
@@ -48,5 +48,5 @@ Alias key:
 2. s = status -s 
     * (going with the short side, don't really need the big indicators, and keeps the bash cleaner)
 3. cm = commit -m
-4. cam - commit -a -m
+4. cam = commit -a -m
 * nothing crazy, will want to keep this key up. I am using these on the global level, shouldn't be to hard to manage.
