@@ -57,3 +57,20 @@ bool validMountainArray(int* arr, int arrSize){
         while(j > 0 && arr[j-1] > arr[j]) --j;
         return i > 0 && i == j && j < size - 1;
 }
+
+/*
+Move Zeros
+01/06/23
+*/
+void moveZeroes(int* nums, int numsSize){
+        int foot = 0;
+        int temp = 0;
+        for(int head = 0; head <= numsSize-1; ++head){
+            if(nums[head] != 0){
+                temp = nums[head];
+                nums[head] = nums[foot];
+                nums[foot] = temp;
+                ++foot;
+            }
+        }
+}

@@ -152,3 +152,25 @@ var replaceElements = function(arr) {
     }
     return arr;
 };
+
+
+/*
+Move Zeros
+01/06/23
+*/
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var moveZeroes = function(nums) {
+    var foot = 0;
+    var temp = 0;
+    for(var head = 0; head <= nums.length-1; ++head){
+        if(nums[head] != 0){
+            temp = nums[head];
+            nums[head] = nums[foot];
+            nums[foot] = temp;
+            ++foot;
+        }
+    }
+};

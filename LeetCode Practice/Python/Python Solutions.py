@@ -257,3 +257,22 @@ class Solution:
         arr.append(-1)
         #print(arr)
         '''
+
+
+"""
+01/06/2023
+Move Zeros
+"""
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        foot = 0
+        temp = 0
+        for head in range(len(nums)):
+            if nums[head] != 0:
+                temp = nums[head]
+                nums[head] = nums[foot]
+                nums[foot] = temp
+                foot += 1

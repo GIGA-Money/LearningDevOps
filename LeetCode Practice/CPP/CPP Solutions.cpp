@@ -306,3 +306,23 @@ public:
         return arr;
     }
 };
+
+/*
+Move Zeros
+01/06/23
+*/
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int foot = 0;
+        int temp = 0;
+        for(int head = 0; head <= nums.size()-1; ++head){
+            if(nums[head] != 0){
+                temp = nums[head];
+                nums[head] = nums[foot];
+                nums[foot] = temp;
+                ++foot;
+            }
+        }
+    }
+};

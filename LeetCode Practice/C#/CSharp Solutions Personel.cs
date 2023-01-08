@@ -240,3 +240,22 @@ public class Solution {
         return arr;
     }
 }
+
+/*
+Move Zeros
+01/06/23
+*/
+public class Solution {
+    public void MoveZeroes(int[] nums) {
+        int foot = 0;
+        int temp = 0;
+        for(int head = 0; head <= nums.Length-1; ++head){
+            if(nums[head] != 0){
+                temp = nums[head];
+                nums[head] = nums[foot];
+                nums[foot] = temp;
+                ++foot;
+            }
+        }
+    }
+}
