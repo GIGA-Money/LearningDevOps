@@ -258,4 +258,54 @@ public class Solution {
             }
         }
     }
+    public bool isEvenOdd(double numbers){
+        if((numbers % 2) == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public bool isPositive(double number){
+        return number >= 0;
+    }
+}
+
+/*
+1/10/2023
+Sort By Parity
+*/
+public class Solution {
+    protected bool isPositive(int number){
+        return (number % 2) == 0;
+    }
+    public int[] SortArrayByParity(int[] nums) {
+        int fast = 0;
+        for(int slow = 0; slow <= nums.Length - 1; ++slow){
+            if (isPositive(nums[slow])){
+            nums[slow] = (nums[slow] + nums[fast]) - (nums[fast] = nums[slow]);
+            ++fast;
+            }
+        }
+        return nums;
+    }
+}
+
+/*
+1/13/23
+Height Checker
+*/
+public class Solution {
+    public int HeightChecker(int[] heights) {
+        int[] expected;
+        expected = heights.Clone() as int[];
+        Array.Sort(expected);
+        int missmatch = 0;
+        for(var i = 0; i <= heights.Length - 1; ++i){
+            if(heights[i] != expected[i]){
+                ++missmatch;
+            }
+        }
+        return(missmatch);
+    }
 }

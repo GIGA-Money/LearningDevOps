@@ -258,7 +258,6 @@ class Solution:
         #print(arr)
         '''
 
-
 """
 01/06/2023
 Move Zeros
@@ -276,3 +275,67 @@ class Solution:
                 nums[head] = nums[foot]
                 nums[foot] = temp
                 foot += 1
+
+
+def isEvenOdd(float: number) -> bool:
+    return (number % 2) == 0
+    if number % 2 == 0:
+        return True
+    else:
+        return False
+
+# %%
+def isPositive(float: number) -> bool:
+    return number >= 0
+# %%
+
+'''
+1/10/23
+Sort by Parity
+'''
+def isEven(number) -> bool:
+    return (number % 2) == 0
+
+class Solution:
+    def sortArrayByParity(self, nums: List[int]) -> List[int]:
+        fast = 0
+        for slow in range(len(nums)):
+            if isEven(nums[slow]):
+                nums[slow], nums[fast] = nums[fast], nums[slow]
+                fast += 1
+        return nums
+    
+'''
+1/13/2022
+Height Checker
+'''
+class Solution:
+    def heightChecker(self, heights: List[int]) -> int:
+        expected = heights[:]
+        expected.sort()
+        missmatch = 0
+        for i in range(len(heights)):
+            if heights[i] != expected[i]:
+                missmatch += 1
+
+        return missmatch
+    
+'''
+1/17/23
+Thrid Max value
+'''
+class Solution:
+    def thirdMax(self, nums: List[int]) -> int:
+        
+        nums.sort(reverse = True)
+        counter = 1
+        lastEl = nums[0]
+        
+        for slow in range(len(nums)):
+            if nums[slow] != lastEl:
+                counter += 1
+                lastEl = nums[slow]
+            if counter == 3:
+                return nums[slow]
+            
+        return nums[0]

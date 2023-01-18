@@ -174,3 +174,53 @@ var moveZeroes = function(nums) {
         }
     }
 };
+
+
+/**
+ * @param {number} number
+ * @return {boolean}
+ */
+var isEvenOdd = function(numbers){
+    if((numbers % 2) == 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+};
+
+/**
+ * @param {number} number
+ * @return {boolean}
+ */
+var isPositive = function(number){
+    return number >= 0;
+};
+
+
+ /**
+ * @param {number} numsber
+ * @return {bool}
+ */
+ var isPositive = function(number){
+    return (number % 2) == 0;
+}
+
+/*
+1/10/2023
+Sort By Parity
+*/
+/**
+* @param {number[]} nums
+* @return {number[]}
+*/
+var sortArrayByParity = function(nums) {
+   var fast = 0;
+   for(var slow = 0; slow <= nums.length - 1; ++slow){
+       if (isPositive(nums[slow])){
+           nums[slow] = (nums[slow] + nums[fast]) - (nums[fast] = nums[slow]);
+           ++fast;
+       }
+   }
+   return nums;
+};

@@ -15,4 +15,7 @@ class Solution {
             }
         }
     }
+    bool isPositive(double number){
+        return number >= 0;
+    }
 }

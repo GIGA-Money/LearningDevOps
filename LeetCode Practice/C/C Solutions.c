@@ -74,3 +74,16 @@ void moveZeroes(int* nums, int numsSize){
             }
         }
 }
+
+bool isEvenOdd(double numbers){
+    if((numbers % 2) == 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool isPositive(double number){
+        return number >= 0;
+}

@@ -124,3 +124,31 @@ Move Zeros
         }
     }
 };
+
+var isPositive = function(numbers){
+    if((numbers % 2) == 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+};
+
+var isPositive = function(number){
+    return number >= 0;
+};
+
+/*
+1/10/2023
+Sort By Parity
+*/
+function sortArrayByParity(nums: number[]): number[] {
+    var fast = 0;
+    for(var slow = 0; slow <= nums.length - 1; ++slow){
+        if ((nums[slow] % 2) == 0){
+            nums[slow] = (nums[slow] + nums[fast]) - (nums[fast] = nums[slow]);
+            ++fast;
+        }
+    }
+    return nums;
+};

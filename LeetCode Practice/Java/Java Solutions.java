@@ -256,4 +256,57 @@ class Solution {
             }
         }
     }
+    public boolean isEvenOdd(double numbers){
+        if((numbers % 2) == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public boolean isPositive(double number){
+        return number >= 0;
+    }   
+}
+
+/*
+1/10/2023
+Sort By Parity
+*/
+class Solution {
+    protected boolean isPositive(int number){
+        return (number % 2) == 0;
+        /** XOR swap, but doesn't work on conditions such as [0,2], might be a result of the isPositive helper'
+        nums[slow] ^= nums[fast]; nums[fast] ^= nums[slow]; nums[slow] ^= nums[fast];
+         */
+    }
+    public int[] sortArrayByParity(int[] nums) {
+         int fast = 0;
+          for(int slow = 0; slow <= nums.length - 1; ++slow){
+              if (isPositive(nums[slow])){
+                  nums[slow] = (nums[slow] + nums[fast]) - (nums[fast] = nums[slow]);
+                  ++fast;
+              }
+          }
+          return nums;
+    }
+}
+
+/*
+1/13/23
+Height Checker
+*/
+class Solution {
+    public int heightChecker(int[] heights) {
+        int[] expected;
+        expected = heights.clone();
+        Arrays.sort(expected);
+        int missmatch = 0;
+        for(var i = 0; i <= heights.length - 1; ++i){
+            if(heights[i] != expected[i]){
+                ++missmatch;
+            }
+        }
+        return(missmatch);
+    }
 }

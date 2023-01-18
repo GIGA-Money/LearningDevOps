@@ -325,4 +325,80 @@ public:
             }
         }
     }
+    bool isEvenOdd(double numbers){
+        if((numbers % 2) == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    bool isPositive(double number){
+        return number >= 0;
+    }
+};
+
+/*
+1/10/2023
+Sort By Parity
+*/
+class Solution {
+public:
+    bool isPositive(int number){
+        return (number % 2) == 0;
+    }
+    vector<int> sortArrayByParity(vector<int>& nums) {
+        int fast = 0;
+        for(int slow = 0; slow <= nums.size() - 1; ++slow){
+             if (isPositive(nums[slow])){
+                 swap(nums[slow], nums[fast]);
+                 ++fast;
+             }
+        }
+        return nums;
+    }
+};
+
+/*
+1/13/23
+Height Checker
+*/
+class Solution {
+public:
+    int heightChecker(vector<int>& heights) {
+        int missmatch = 0;
+        vector<int> expected;
+        copy(heights.begin(), heights.end(), back_inserter(expected));
+        sort(expected.begin(), expected.end());
+        for(int i = 0; i <= heights.size() - 1; ++i){
+            if(heights[i] != expected[i]){
+                ++missmatch;
+            }
+        }
+        return missmatch;
+    }
+};
+
+/*
+1/17/23
+Thrid Max value
+*/
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        sort(nums.begin(), nums.end(),  greater<int>());
+        int counter = 1;
+        int lastEl = nums[0];
+        for(int slow = 0; slow < nums.size(); ++ slow)
+        {
+            if(nums[slow] != lastEl){
+                ++counter;
+                lastEl = nums[slow];
+            }
+            if(counter == 3){
+                return nums[slow];
+            }
+        }
+        return nums[0];
+    }
 };
