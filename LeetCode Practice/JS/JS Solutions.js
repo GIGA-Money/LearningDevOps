@@ -224,3 +224,12 @@ var sortArrayByParity = function(nums) {
    }
    return nums;
 };
+
+/*
+ * Dr. Adams' class
+ * 
+*/
+for(var l = 0; l < longArray.length - 1; ++l)
+{
+    console.log(longArray[l]);
+}

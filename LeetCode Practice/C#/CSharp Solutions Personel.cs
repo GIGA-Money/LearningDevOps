@@ -309,3 +309,22 @@ public class Solution {
         return(missmatch);
     }
 }
+
+
+long[] longArray = new long[6];
+longArray[0] = 1000;
+longArray[1] = 300;
+longArray[2] = 900;
+longArray[3] = 420;
+longArray[4] = 750;
+longArray[5] = -666;
+
+foreach (long l in longArray)
+{
+    Console.WriteLine(l);
+}
+
+for(long l = 0; l < longArray.Length - 1; ++l)
+{
+    Console.WriteLine(longArray[l]);
+}

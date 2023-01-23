@@ -310,3 +310,13 @@ class Solution {
         return(missmatch);
     }
 }
+
+
+/*
+ * Dr. Adams' class
+ * 
+*/
+for(long l = 0; l < longArray.length - 1; ++l)
+{
+    System.out.println(longArray[l]);
+}

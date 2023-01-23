@@ -339,3 +339,6 @@ class Solution:
                 return nums[slow]
             
         return nums[0]
+    
+for l in range(len(longarray)):
+    print(l)

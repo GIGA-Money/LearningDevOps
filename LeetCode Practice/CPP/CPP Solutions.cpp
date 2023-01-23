@@ -402,3 +402,13 @@ public:
         return nums[0];
     }
 };
+
+
+/*
+ * Dr. Adams' class
+ * 
+*/
+for(long l = 0; l < longArray.size() - 1; ++l)
+{
+    cout << longArray[l] << endl;
+}
