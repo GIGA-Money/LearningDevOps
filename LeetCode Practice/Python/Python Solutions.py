@@ -128,7 +128,7 @@ Remove Element
 Given a list and a to remove value.
 When the remove value is found, the fast pointer will be 2 ahead, so we'll move that value into the to remove position.
 The first (slow) pointer will represent new length of the list/array.
-The judgement uses this to check if the "new" list/array DOESNOT have the to remove value, not if the full array/list has the value or not.
+The judgement uses this to check if the "new" list/array DOES NOT have the to remove value, not if the full array/list has the value or not.
 As the remove value is hit, we move the fast pointer to the slow pointer and increment both pointers,
 and repeat till at the end of the list.
 Internal dialog:
@@ -362,8 +362,6 @@ class Solution:
 1/17/23
 Thrid Max value
 '''
-
-
 class Solution:
     def thirdMax(self, nums: List[int]) -> int:
 
@@ -403,9 +401,6 @@ def fillGap(list: stringList = [None], string: gap = 'Missing'):
 fillGap(stringList, gap)
 print(stringList)
 # %%
-
-'''
-'''
 
 
 class Guitar:

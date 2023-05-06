@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="OrderEntryFrontEndStyle.css">
+    <title>Learning from the Mozilla Dev site</title>
+</head>
+
+<body>
+    <div class="enter_order">
+        <div class="order_entry">
+            <header class="card__header">
+                <i class="fa-solid fa-burger foodIcon1" alt="foodTitle"></i>
+                <div>
+                    <h2>Welcome to GiG's!</h2>
+                    <p>Where Philly's come to you!<a href="">Menu Here</a></p>
+                </div>
+            </header>
+            <main>
+                <div class="card__form">
+                    <!-- Learn of to save inputs in cache for page refreshing. -->
+                    <form name="philly__entree">
+                        <p>Which Philly Would you like?</p>
+                        <label>Philly Style:
+                            <select id="entree" name="Entree">
+                                <option>Classic Philly</option>
+                                <option>Texas Style</option>
+                                <option>The mediterranean</option>
+                                <option>Make it a Wrap</option>
+                            </select>
+                            <br>Super Size Me!<br>
+                            <input type="checkbox" value="Super Size Me!">
+                        </label>
+                        <button type="submit">Submit</button>
+                    </form>
+                    <div class="upside__preference">
+                        <label for="Entree">Would you like to double the Meat?</label>
+                        <input type="checkbox" name="Meat" id="toppings">
+                        <form name="topping__entry">
+                            <p>Would you like to add any toppings?</p>
+                            <label>Philly_Toppings:
+                                <select id="food" name="Toppings">
+                                    <option>None</option>
+                                    <option>Jalapenos</option>
+                                    <option>Cheese Blend</option>
+                                    <option>Mozzarella Cheese</option>
+                                    <option>Spinage</option>
+                                </select>
+                            </label>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                    <label for="Toppings">Would you like to double the toppings?</label>
+                    <input type="checkbox" name="Toppings" id="side_dish_optional">
+                    <form name="side__entry">
+                        <p>Which Side would you like?</p>
+                        <label>Side:
+                            <select id="side_dish_option" name="Side">
+                                <option>None</option>
+                                <option>Curly fry's</option>
+                                <option>Mozzarella Sticks</option>
+                                <option>Jalapeno bits</option>
+                                <option>Loaded BLT Salad</option>
+                            </select>
+                        </label>
+                        <button type="submit">Submit</button>
+                    </form>
+                    <form name="drink__entry">
+                        <p>Which Drink would you like to order?</p>
+                        <label>Drink:
+                            <select id="drink__entry" name="Drink">
+                                <option>None</option>
+                                <option>Coke</option>
+                                <option>Vanilla Coke</option>
+                                <option>Mellow Yellow</option>
+                                <option>Cherry Sprit</option>
+                            </select>
+                        </label>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </main>
+            <div class="card__tail">
+                <h4>Tips for the team help!</h4>
+                <input class="custom_ip" type="number" placeholder="$" min="0" step="0.5"
+                    onfocus="this.value==this.defaultValue?this.value='':null">
+            </div>
+        </div>
+    </div>
+    <footer>
+        <h5>Restaurant Ordering project<a href="">No link yet, add GitHub?</a></h5>
+    </footer>
+</body>
+
+</html>

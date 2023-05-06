@@ -1,0 +1,17 @@
+<from [fromGroup]="userForm" (ngSubmit)="onsubmit)">
+    <p>
+        <label for="email">
+            Email
+        </label>
+        <input type="text" id="email" name="email" formControlName="email">
+    </p>
+    <p>
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" formControlName="firstName">
+    </p>
+    <p>
+        <label for="lastname">Last Name</label>
+        <input type="text" id="lastname" name="lastname" formControlName="lastname">
+    </p>
+    <button type="submit">Submit</button>
+</from>

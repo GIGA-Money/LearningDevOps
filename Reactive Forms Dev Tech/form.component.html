@@ -1,0 +1,17 @@
+<!-- food.component.html -->
+<form [formGroup]="foodForm" (ngSubmit)="onSubmit()">
+    <label for="first-name">First Name</label>
+    <input type="text" id="first-name" formControlName="firstName">
+    <label for="last-name">Last Name</label>
+    <input type="text" name="last-name" id="last-name" formControlName="lastname">
+    <label for="known-as">Known As:</label>
+    <input type="text" name="known-as" id="known-as" formControlName="knownAs">
+    <div formGroupName="address">
+        <label for="street">Street: </label>
+        <input type="text" name="street" id="street" formControlName="street">
+        <label for="city">City: </label>
+        <input type="text" name="city" id="city" fromControlName="city">
+        <label for="country">Country: </label>
+        <input type="text" name="country" id="country" fromcontrolName="country">
+    </div>
+</form>

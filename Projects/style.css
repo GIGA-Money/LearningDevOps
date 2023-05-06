@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@200;300;400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: whitesmoke;
+    font-family: 'Barlow Semi Condensed',
+        sans-serif;
+    line-height: 1.7;
+    font-size: 13px;
+}
+
+.red-input:focus {
+    background: yellow;
+    color: red;
+}
+
+.testimonials {
+    max-width: 1440px;
+    margin: 100px auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.card {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: rgba(20, 12, 46, 0.10) 0px 48px 100px 0px;
+    margin-bottom: 10px;
+}
+
+.card__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.card__header h3 {
+    font-size: 15px;
+}
+
+
+.card__header p {
+    opacity: 50%;
+}
+
+
+.ytIcon {
+    justify-self: center;
+    align-self: center;
+    font-size: 25px;
+    padding: 2.5%;
+    /* width: 40px; */
+    /* height: 40px; */
+    border: 50%;
+    border: 2px solid rgb(120, 0, 0);
+    margin-right: 10px;
+}
+
+.meta1Icon {
+    justify-self: center;
+    align-self: center;
+    font-size: 25px;
+    padding: 2.5%;
+    border: 50%;
+    border: 2px solid rgb(22, 11, 235);
+    margin-right: 10px;
+}
+
+.meta2Icon {
+    justify-self: center;
+    align-self: center;
+    font-size: 25px;
+    padding: 1.5%;
+    border: 50%;
+    border: 2px solid rgb(185, 20, 149);
+    margin-right: 10px;
+}
+
+.twtrIcon {
+    justify-self: center;
+    align-self: center;
+    font-size: 25px;
+    padding: 2.5%;
+    border: 50%;
+    border: 2px solid rgb(0, 158, 186);
+    margin-right: 10px;
+}
+
+.redIcon {
+    justify-self: center;
+    align-self: center;
+    font-size: 25px;
+    padding: 2.5%;
+    border: 50%;
+    border: 2px solid rgb(255, 83, 15);
+    margin-right: 10px;
+}
+
+.snapIcon {
+    justify-self: center;
+    align-self: center;
+    font-size: 25px;
+    padding: 2.5%;
+    border: 50%;
+    border: 2px solid rgb(242, 242, 15);
+    margin-right: 10px;
+}
+
+.card__lead {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 20px;
+}
+
+.card__quote {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+    opacity: 70%;
+}
+
+.card--bg-purple {
+    background: hsl(263, 55%, 52%);
+    color: white;
+    background-image: url('./images/YTSubScribe.jpg');
+    background-repeat: no-repeat;
+    background-position: top 10px right 10px;
+}
+
+.card--bg-purple:hover {
+    background: hsl(263, 97%, 65%);
+    color: white;
+    background-image: url('./images/YTSubScribe.jpg');
+    background-repeat: no-repeat;
+    background-position: top 10px right 11px;
+}
+
+.card--bg-pink-purple:focus {
+    color: black;
+    background-position: top 100px right 11px;
+}
+
+.card--bg-pink-purple:focus-within {
+    color: red;
+}
+
+.card--bg-pink-purple:active {
+    color: azure;
+}
+
+.card--bg-black-blue {
+    background: hsl(217, 19%, 35%);
+    color: white;
+    background-image: url('./images/FBMeta.jpg');
+    background-repeat: no-repeat;
+    background-position: top 10px right 100px;
+}
+
+.card--bg-black-blue:hover {
+    background: hsl(217, 19%, 50%);
+    color: white;
+    background-image: url('./images/FBMeta.jpg');
+    background-repeat: no-repeat;
+    background-position: top 10px right 101px;
+}
+
+.card--bg-pink-purple {
+    background: hsl(309, 100%, 40%);
+    color: whitesmoke;
+    /* background-image: url('./images/FBMeta.jpg'); */
+    background-repeat: no-repeat;
+    background-position: top 10px right 100px;
+}
+
+.card--bg-pink-purple:hover {
+    background: hsl(310, 100%, 40%);
+    color: yellow;
+    /* background-image: url('./images/FBMeta.jpg'); */
+    background-repeat: no-repeat;
+    background-position: top 10px right 101px;
+}
+
+.card--bg-yellow-white {
+    background: hsl(60, 95%, 46%);
+    color: rgb(11, 11, 11);
+    /* background-image: url('./images/FBMeta.jpg'); */
+    background-repeat: no-repeat;
+    background-position: top 10px right 100px;
+}
+
+.card--bg-yellow-white:hover {
+    background: hsla(55, 95%, 46%, 0.803);
+    color: rgb(11, 11, 11);
+    /* background-image: url('./images/FBMeta.jpg'); */
+    background-repeat: no-repeat;
+    background-position: top 10px right 101px;
+}
+
+.card--bg-blue-blue {
+    background: hsl(184, 95%, 46%);
+    color: rgb(11, 11, 11);
+    /* background-image: url('./images/FBMeta.jpg'); */
+    background-repeat: no-repeat;
+    background-position: top 10px right 100px;
+}
+
+.card--bg-blue-blue:hover {
+    background: hsl(180, 95%, 46%);
+    color: rgb(11, 11, 11);
+    /* background-image: url('./images/FBMeta.jpg'); */
+    background-repeat: no-repeat;
+    background-position: top 10px right 101px;
+}
+
+.card--bg-orange-white {
+    background: hsl(2, 95%, 46%);
+    color: rgb(255, 255, 255);
+    /* background-image: url('./images/FBMeta.jpg'); */
+    background-repeat: no-repeat;
+    background-position: top 10px right 100px;
+}
+
+.card--bg-orange-white:hover {
+    background: hsl(10, 95%, 46%);
+    color: rgb(255, 255, 255);
+    /* background-image: url('./images/FBMeta.jpg'); */
+    background-repeat: no-repeat;
+    background-position: top 10px right 101px;
+}
+
+.card:nth-last-of-type(1) {
+    grid-column: 1/3;
+}
+
+.card:nth-last-child(2) {
+    grid-column: 1/2;
+}
+
+.card:nth-last-of-type(4) {
+    grid-column: 2/3;
+    grid-row: 2;
+}
+
+.card:nth-last-of-type(5) {
+    grid-column: 4;
+    grid-row: 1/4;
+}
+
+footer {
+    text-align: center;
+}
+
+@media(max-width: 768px) {
+    .testimonials {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .card:nth-last-of-type(1) {
+        grid-column: 1;
+    }
+
+    .card:nth-last-of-type(4) {
+        grid-column: 1;
+        grid-row: 4;
+    }
+
+    .card:nth-last-of-type(5) {
+        grid-column: 1;
+        grid-row: 5/6;
+    }
+
+    .card--bg-purple {
+        background: hsl(263, 55%, 52%);
+        color: white;
+        background-image: url('./images/YTSubScribe.jpg');
+        background-repeat: no-repeat;
+        background-position: top 10px right 10px;
+    }
+
+    .card--bg-black-blue {
+        background: hsl(217, 19%, 35%);
+        color: white;
+        background-image: url('./images/FBMeta.jpg');
+        background-repeat: no-repeat;
+        background-position: top 10px right 11px;
+    }
+}
