@@ -1,4 +1,9 @@
 # Resuming the journey that took a pause
+05/08/2023
+- [ ] I had moved over, back in March, to a spring and angular project.
+- [ ] but this project got moved again to a node.js and angular project.
+- [ ] so the finishing of this project will go into this learning dev ops project, a full stack dev project. 
+
 01/06/2023
 * Took my holiday break, maybe a bit to relaxed.
 * got a book on Spring and Angular. Check back on an old spring project book, and it was a bit dated.
