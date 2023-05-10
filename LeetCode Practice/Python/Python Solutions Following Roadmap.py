@@ -32,15 +32,26 @@ class Solution:
         """
         @Params: nums: List[int]
         @Returns: bool
-        """
-        nums2 = set(nums)
-        if len(nums2) == len(nums):
-            return False
-        return True
-        """
+        I opted for the set length comparison, my 2 pointer solution was 
+        actually timing out because it was to slow for the super sized testcases.
+        """    
         if len(nums) <= 1:
             return False
         nums2 = set(nums)
         if len(nums2) == len(nums):
             return False
         return True
+
+"""
+Neet Code's solution opted for the hashset, added the visited elements to the
+set and if they are in the hashset, it means there is a duplicate.
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        hashset = set()
+
+        for n in nums:
+            if n in hashset:
+                return True
+            hashset.add(n)
+        return False
+"""
