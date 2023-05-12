@@ -55,3 +55,45 @@ class Solution:
             hashset.add(n)
         return False
 """
+
+# %% Leet code: 242. Valid Anagram
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        """
+        @Params: s: str, t: str
+        @Returns: bool
+        I did decide to use the count method, knowing it is slower.
+        This was just want came to mind at the time. 
+        """
+        if len(s) != len(t):
+            return False
+        # sorted(s)
+        # sorted(t)
+        for i in s:
+            if s.count(i) != t.count(i):
+                return False
+        return True
+
+solution = Solution()
+print(solution.isAnagram("aacc", "ccac"))
+# %%
+
+# Roadmap: solution invovled the following:
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+
+        countS, countT = {}, {}
+
+        for i in range(len(s)):
+            countS[s[i]] = 1 + countS.get(s[i], 0)
+            countT[t[i]] = 1 + countT.get(t[i], 0)
+        return countS == countT
+# Starting out the same, Neet code, went with the length check.
+# proceeded to create dictionaries for the counts of each letter.
+# intreating through the dictionaries, if the counts are not the same,
+# the result will always return the expected result. 
+# this solution, uses a dictionary to get the count of each element.
+# condenses down what I had above but into a dictionary.
+# and only hvaeing 2 returns rather than a possible 3
