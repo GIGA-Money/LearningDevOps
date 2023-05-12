@@ -27,6 +27,8 @@ Given an integer array nums, return true if any value appears at least twice in 
 and return false if every element is distinct.
 https://leetcode.com/problems/contains-duplicate/
 """
+
+
 class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
         """
@@ -34,13 +36,14 @@ class Solution:
         @Returns: bool
         I opted for the set length comparison, my 2 pointer solution was 
         actually timing out because it was to slow for the super sized testcases.
-        """    
+        """
         if len(nums) <= 1:
             return False
         nums2 = set(nums)
         if len(nums2) == len(nums):
             return False
         return True
+
 
 """
 Neet Code's solution opted for the hashset, added the visited elements to the
@@ -57,6 +60,8 @@ class Solution:
 """
 
 # Leet code: 242. Valid Anagram
+
+
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         """
@@ -74,10 +79,13 @@ class Solution:
                 return False
         return True
 
+
 solution = Solution()
 print(solution.isAnagram("aacc", "ccac"))
 
 # Road-map: solution involved the following:
+
+
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         if len(s) != len(t):
@@ -92,7 +100,36 @@ class Solution:
 # Starting out the same, Neet code, went with the length check.
 # proceeded to create dictionaries for the counts of each letter.
 # intreating through the dictionaries, if the counts are not the same,
-# the result will always return the expected result. 
+# the result will always return the expected result.
 # this solution, uses a dictionary to get the count of each element.
 # condenses down what I had above but into a dictionary.
-# and only hvaeing 2 returns rather than a possible 3
+# and only having 2 returns rather than a possible 3
+
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        # hash map
+        seen = {}
+        for i, num in enumerate(nums):
+            complement = target - num
+            if complement in seen:
+                return [seen[complement], i]
+            seen[num] = i
+        return []
+        # brute force
+        # foot = len(nums)-1
+        # for head in range(len(nums)):
+        #     if (nums[head] + nums[foot]) == target:
+        #         return [nums.index(nums[head]), nums.index(nums[foot])]
+        #     elif (nums[head] + nums[foot]) > target:
+        #         foot -= 1
+        #         print(foot)
+        # brute force solution:
+        #  if len(nums) <= 2:
+        #     return [nums.index(nums[0]), nums.index(nums[1])]
+        # for i in range(len(nums)):
+        #     for j in range(len(nums)):
+        #         if i == j:
+        #             continue
+        #         elif nums[i] + nums[j] == target:
+        #             return [nums.index(nums[i]), nums.index(nums[j])]
