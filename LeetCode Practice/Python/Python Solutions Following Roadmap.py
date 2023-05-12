@@ -56,7 +56,7 @@ class Solution:
         return False
 """
 
-# %% Leet code: 242. Valid Anagram
+# Leet code: 242. Valid Anagram
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         """
@@ -76,9 +76,8 @@ class Solution:
 
 solution = Solution()
 print(solution.isAnagram("aacc", "ccac"))
-# %%
 
-# Roadmap: solution invovled the following:
+# Road-map: solution involved the following:
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         if len(s) != len(t):
