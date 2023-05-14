@@ -137,3 +137,76 @@ class Solution:
         #             continue
         #         elif nums[i] + nums[j] == target:
         #             return [nums.index(nums[i]), nums.index(nums[j])]
+
+
+# 49: group Anagrams problem:
+# https://leetcode.com/problems/group-anagrams
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        """
+        @Params: s, t
+        @Returns: bool
+        """
+        if len(s) != len(t):
+            return False
+
+        countS, countT = {}, {}
+
+        for i in range(len(s)):
+            countS[s[i]] = 1 + countS.get(s[i], 0)
+            countT[t[i]] = 1 + countT.get(t[i], 0)
+        return countS == countT
+    
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        """
+        @Params: List of strings strs: List[str]
+        @Returns: List of lists of strings
+        the idea was to loop through,
+        do the comparison on each anagram to each other word,
+        then append them.
+        """
+         if len(strs) <= 0:
+             return [[""]]
+        outList = []
+        for i in strs:
+            print(i)
+            for j in strs:
+                if self.isAnagram(i,j):
+                    outList.append(j)
+                    print(i,j)
+        return outList
+    
+    """
+    This function groupAnagrams takes a list of strings as input and groups all the anagrams together into separate lists. 
+    It uses a dictionary to store the anagrams where the keys are the sorted version of the string and the values are the original strings.
+    The function loops through each string in the input list, 
+    sorts the string to create a sorted version of the string and stores it in storString. 
+    It then checks if this storString is already in the dictionary, 
+    if yes, it appends the original string to the list of strings associated with the key (the sorted string) 
+    in the dictionary. If not, it adds a new key-value pair to the dictionary with the key as the sorted string 
+    and the value as a list containing the original string.
+    The output of the function is a list of lists of strings, 
+    where each list contains all the anagrams. 
+    The function returns the values of the dictionary as a list using list(outList.values()).
+    """    
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        # This is a proper brute force solution.
+        """
+        @Params: List of strings strs: List[str]
+        @Returns: List of lists of strings
+        This solution uses a dictionary to store the anagrams.
+        We loop through the list of strings, using storString to hold a sorted string
+        and store sorted strings in a dictionary.
+        If the storString is already in the dictionary, we append it to the list of lists.
+        else, we append it to the dictionary at the location of string without sorting.
+        """
+        if len(strs) <= 0:
+            return [[""]]
+        outList = {}
+        for i in strs:
+            storString=str(sorted(i))
+            if storString in outList:
+                outList[storString].append(i)
+            else:
+                outList[storString] = [i]
+        return list(outList.values())
