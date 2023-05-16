@@ -1,0 +1,4 @@
+<app-navbar [loggedIn]="url != '/' && !url.includes('login')" (actionEmitter)="submit($event)"></app-navbar>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
