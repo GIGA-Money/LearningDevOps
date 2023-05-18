@@ -26,7 +26,9 @@ import { JwtModule } from '@auth0/angular-jwt';
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25 }),
-    JwtModule.forRoot({})
+    JwtModule.forRoot({
+      config: { tokenGetter },
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },

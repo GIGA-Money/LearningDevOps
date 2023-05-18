@@ -6,7 +6,7 @@ import { NavigationEnd, Router } from '@angular/router';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-})
+}) 
 export class AppComponent {
   title = 'superheroes-v13';
   url: string = '';
@@ -28,10 +28,9 @@ export class AppComponent {
   }
 
   getRouter() {
-    this.router.events.subscribe(data => {
-      if(data instanceof NavigationEnd){
+    this.router.events.subscribe((data) => {
+      if (data instanceof NavigationEnd) {
         this.url = data.url;
-      
       }
     });
   }
