@@ -6,39 +6,38 @@ import { FormComponent } from './anti-hero/pages/form/form.component';
 
 const routes: Routes = [
   {
-    path: "anti-heroes",
+    path: 'anti-heroes',
     loadChildren: () =>
-      import("./anti-hero/anti-hero.module").then((m) => m.AntiHeroModule),
-      canLoad: [AuthGuard],
+      import('./anti-hero/anti-hero.module').then((m) => m.AntiHeroModule),
+    canLoad: [AuthGuard],
   },
   {
-    path: "",
-    redirectTo: "login",
-    pathMatch: "full",
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
   },
   {
-    path: "login",
-    loadChildren: () =>
-    import("./auth/auth.module").then((m) => m.AuthModule),
+    path: 'login',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: "form",
+    path: 'form',
     children: [
       {
-        path: "",
+        path: '',
         canDeactivate: [FormGuard],
-        component: FormComponent
+        component: FormComponent,
       },
       {
-        path: ":id",
+        path: ':id',
         canDeactivate: [FormGuard],
-        component: FormComponent
-      }
-    ]    
-  }
+        component: FormComponent,
+      },
+    ],
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
