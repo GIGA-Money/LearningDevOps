@@ -1,13 +1,11 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { catchError, Observable, tap, throwError } from "rxjs";
-// import { environment } from "C:/Users/gigac/Documents/Projects/VB/DevOpsLearning/LearningDevOps/Angular/superheroes-v13/src/environments/environment.ts";
-import { AntiHero } from "../models/anti-hero.interface";
-import { environment } from "src/environments/environment.prod";
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { catchError, Observable, tap, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { AntiHero } from '../models/anti-hero.interface';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AntiHeroService {
   constructor(private http: HttpClient) {}

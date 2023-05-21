@@ -1,4 +1,4 @@
-import { createReducer } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { setError, setToken } from './auth.actions';
 
 export interface AuthState {

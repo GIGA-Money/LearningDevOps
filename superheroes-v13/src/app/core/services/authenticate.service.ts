@@ -3,17 +3,21 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient } from '@angular/common/http';
-
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticateService {
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
+  constructor(
+    private http: HttpClient,
+    private jwtHelper: JwtHelperService,
+    private router: Router
+  ) {}
 
   // for login endpoint
   login(data: { email: string; password: string }): Observable<any> {
     return this.http
-      .post<any>('${environment.authURL}/authenticate', data)
+      .post<any>(`${environment.authURL}/authenticate`, data)
       .pipe(
         tap((data: any) => data),
         catchError((err) => throwError(() => err))
@@ -22,7 +26,7 @@ export class AuthenticateService {
 
   // for register endpoint
   register(data: { email: string; password: string }): Observable<any> {
-    return this.http.post<any>('${environment.authURL}/register', data).pipe(
+    return this.http.post<any>(`${environment.authURL}/register`, data).pipe(
       tap((data: any) => data),
       catchError((err) => throwError(() => err))
     );

@@ -15,7 +15,7 @@ export interface CanComponentDeactivate {
 })
 export class FormGuard implements CanDeactivate<unknown> {
   canDeactivate(
-    component: unknown,
+    component: CanComponentDeactivate,
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot

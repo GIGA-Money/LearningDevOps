@@ -5,8 +5,9 @@
 export const environment = {
   production: false,
   apiURL: "http://localhost:8080/api/v1",
-  authURL: "http://localhost:8080"
+  authURL: "http://localhost:8080" // Add the authURL property here
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file
