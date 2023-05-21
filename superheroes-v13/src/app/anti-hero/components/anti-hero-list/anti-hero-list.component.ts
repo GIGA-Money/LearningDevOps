@@ -5,15 +5,19 @@ import { AntiHero } from '../../models/anti-hero.interface';
 @Component({
   selector: 'app-anti-hero-list',
   templateUrl: './anti-hero-list.component.html',
-  styleUrls: ['./anti-hero-list.component.scss']
+  styleUrls: ['./anti-hero-list.component.scss'],
 })
 export class AntiHeroListComponent implements OnInit {
-  @Input() headers: Array<{headerName: string, fieldName: keyof AntiHero}> = [];
+  @Input() headers: Array<{ headerName: string; fieldName: keyof AntiHero }> =
+    [];
   @Input() antiHeroes: ReadonlyArray<AntiHero> = [];
-  @Output() antiHero = new EventEmitter<{antiHero: AntiHero, action :TableActions}>();
+  @Output() antiHero = new EventEmitter<{
+    antiHero: AntiHero;
+    action: TableActions;
+  }>();
   headerFields: string[] = [];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.getHeaderFields();
@@ -21,11 +25,10 @@ export class AntiHeroListComponent implements OnInit {
 
   getHeaderFields() {
     this.headerFields = this.headers.map((data) => data.fieldName);
-    this.headerFields.push("actions");
+    this.headerFields.push('actions');
   }
 
   selectAntiHero(antiHero: AntiHero, action: TableActions) {
-    this.antiHero.emit({antiHero, action});
+    this.antiHero.emit({ antiHero, action });
   }
-
 }
