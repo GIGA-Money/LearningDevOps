@@ -362,6 +362,8 @@ class Solution:
 1/17/23
 Thrid Max value
 '''
+
+
 class Solution:
     def thirdMax(self, nums: List[int]) -> int:
 
@@ -434,4 +436,21 @@ class Guitar:
 myGuitar = Guitar(0, 0, 0, 0, "Fender")
 myGuitar.setNumOfStrings(7)
 print(myGuitar.getNumOfStrings())
+# %%
+
+"""
+when iterating through a dictionary,
+by default we will get the value, not the key,
+during an enumeration.
+"""
+ages = {"Alice": 25, "Bob": 30, "Charlie": 35}
+for name in ages:
+    print(ages[name])
+
+# %%
+nums = (1, 2, 3, 4, 5)
+sum = 0
+for num in nums:
+    sum += num
+print(sum)
 # %%
