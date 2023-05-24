@@ -1,8 +1,11 @@
 # Resuming the journey that took a pause
+05/22/2023
+- [x] Will continue to make this the testing and playground for new project types, but this repo will most likely be come just that, a testing lab.
+
 05/08/2023
-- [ ] I had moved over, back in March, to a spring and angular project.
-- [ ] but this project got moved again to a node.js and angular project.
-- [ ] so the finishing of this project will go into this learning dev ops project, a full stack dev project. 
+- [x] I had moved over, back in March, to a spring and angular project.
+- [x] but this project got moved again to a ~~node.js~~ (nope back to spring)  and angular project. (follow along with the Full Stack Development repo for more)
+- [x] so the finishing of this project will go into this learning dev ops project, a full stack dev project.
 
 01/06/2023
 * Took my holiday break, maybe a bit to relaxed.
