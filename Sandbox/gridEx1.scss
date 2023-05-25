@@ -19,6 +19,12 @@ body {
     grid-template-rows: 80px 1fr 70px;
 }
 
+.fa-sm {
+    color: green;
+    font-style: italic;
+    align-self: self-end;
+}
+
 header,
 footer,
 main,

@@ -16,5 +16,5 @@ import { FromsModule } from '@angular/froms';
 export class AppModule { }
 
 // example of reactive form approach.
-import {ReactiveFormsModule} from '@angular/froms';
+import { ReactiveFormsModule } from '@angular/froms';
 

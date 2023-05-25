@@ -18,11 +18,11 @@ export class FoodComponent {
             /*
             in a online web front for a restaurant, would use county over country, 
             to indicate of which store would be most appropiate to use.
-            */ 
+            */
         })
     });
 
-    onSubmit(){
+    onSubmit() {
         //  display the value of form group in the form of JSON
         console.warn(this.foodForm.value);
     }
