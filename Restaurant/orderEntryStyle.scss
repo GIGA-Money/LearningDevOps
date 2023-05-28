@@ -6,6 +6,38 @@
     margin: 0;
 }
 
+header,
+footer,
+main,
+aside,
+nav {
+    background-color: #f5f5f5;
+    font-family: 'Barlow Semi Condensed',
+        sans-serif;
+    line-height: 1.7;
+    font-size: 13px;
+}
+
+header {
+    grid-area: header;
+}
+
+nav {
+    grid-area: nav;
+}
+
+main {
+    grid-area: content;
+}
+
+aside {
+    grid-area: sidebar;
+}
+
+footer {
+    grid-area: footer;
+}
+
 body {
     background-color: #f5f5f5;
     font-family: 'Barlow Semi Condensed',
