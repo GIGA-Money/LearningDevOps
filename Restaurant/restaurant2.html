@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=user-scalable, initial-scale=1.0">
+    <link rel="stylesheet" href="./dist/restaurant2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <title>Restaurant 2</title>
+</head>
+
+<body>
+    <header><i class="fa-solid fa-shuttle-space header-icon"></i>
+        Lorem ipsum can make a cool color sitting title.
+        <i class="fa-brands fa-github nav-icon">See my repo:</i>
+        <a href="https://github.com/GIGA-Money">Here</a>
+    </header>
+    <main>Welcome to the food fight bar
+        <h1>Please select you food.</h1>
+        <i class="fa fa-tag" aria-hidden="true">10$ per entry</i>
+        <p>Use the form below to select your food:</p>
+        <form action="Main_Selection">
+            <label for="Main_Selection">Choose your favorite Dish:</label>
+            <select id="Main_Selection">
+                <option value="1">Deep Dish Pizza</option>
+                <option value="2">TexMex Burrito</option>
+            </select>
+            <button type="submit">Enter fight!</button>
+        </form>
+    </main>
+    <nav>Select your map:
+        <form action="Map_Selection">
+            <select name="Maps" id="Map_Selection">
+                <option value="1">Pizzaria</option>
+                <option value="2">Jose's Grill</option>
+            </select>
+            <button type="submit">Select</button>
+        </form>
+    </nav>
+    <aside>Special menue 1:
+        <form action="special_boost">
+            <label for="special_boost"></label>
+            <select name="Special option" id="special_boost">
+                <option value="1">Stuffed with Cheese</option>
+                <option value="2">Jalapeno burn</option>
+            </select>
+            <button type="submit">Use these</button>
+        </form>
+    </aside>
+    <footer>Enter the fight<i class="fas fa-ship footicon"></i>
+    </footer>
+</body>
+
+</html>

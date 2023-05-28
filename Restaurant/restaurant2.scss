@@ -1,0 +1,71 @@
+$primary-color: #C41E3A;
+$secondary-color: #901EC4;
+$tertiary-color: #AB1E99;
+$text-color: #FFFDD0;
+
+* {
+    box-sizing: border-box;
+    padding: 30;
+    margin: 20;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    height: 100vh;
+    background-color: whitesmoke;
+    display: grid;
+    grid-template-areas:
+        'header header header'
+        'nav content sidebar'
+        'nav footer footer';
+    grid-template-columns: 1fr 9fr 1fr;
+    grid-template-rows: 80px 1fr 70px;
+}
+
+.fa-sm {
+    color: green;
+    font-style: italic;
+    align-self: self-end;
+}
+
+header,
+footer,
+main,
+aside,
+nav,
+button {
+    background-color: $primary-color;//rgb(196, 30, 58);
+    color: $text-color;//rgb(144,30,196);
+    padding: 10px;
+    border: $tertiary-color 1px solid;//rgb(189, 217, 3)
+}
+
+header {
+    grid-area: header;
+    font-size: medium;
+}
+
+nav {
+    grid-area: nav;
+    font-size: small;
+}
+
+main {
+    grid-area: content;
+    font-size: large;
+}
+
+aside {
+    grid-area: sidebar;
+    font-size: small;
+}
+
+footer {
+    grid-area: footer;
+    font-size: smaller;
+}
+
+button{
+    background-color: $secondary-color;
+}
