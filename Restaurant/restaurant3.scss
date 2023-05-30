@@ -33,6 +33,7 @@ footer {
     color: $text-color; //rgb(144,30,196);
     padding: 10px;
     border: $tertiary-color 1px solid; //rgb(189, 217, 3)
+    grid-auto-flow: row dense;
 }
 
 .content {

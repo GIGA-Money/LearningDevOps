@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box;
+  padding: 30;
+  margin: 20;
+}
+
+body *,
+body *:before,
+body *:after {
+  font-family: "Open Sans", sans-serif;
+  background-color: #AB1E99;
+  font-size: larger;
+  display: grid;
+  grid-template-areas: "nav nav nav" "aside content aside" "footer footer footer";
+  grid-template-columns: 1fr 9fr 1fr;
+  grid-template-rows: 30px 1fr 60px;
+}
+
+nav,
+main,
+aside,
+footer {
+  background-color: #C41E3A;
+  color: #FFFDD0;
+  padding: 10px;
+  border: #AB1E99 1px solid;
+  grid-auto-flow: row dense;
+}
+
+.content {
+  overflow: hidden;
+  font-size: large;
+}
+
+nav {
+  grid-area: nav;
+  font-size: small;
+}
+
+main {
+  grid-area: content;
+  font-size: larger;
+}
+
+aside {
+  grid-area: aside;
+  font-size: medium;
+}
+
+footer {
+  grid-area: footer;
+  font-size: smaller;
+}/*# sourceMappingURL=restaurant3.css.map */

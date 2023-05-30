@@ -35,10 +35,10 @@ main,
 aside,
 nav,
 button {
-    background-color: $primary-color;//rgb(196, 30, 58);
-    color: $text-color;//rgb(144,30,196);
+    background-color: $primary-color; //rgb(196, 30, 58);
+    color: $text-color; //rgb(144,30,196);
     padding: 10px;
-    border: $tertiary-color 1px solid;//rgb(189, 217, 3)
+    border: $tertiary-color 1px solid; //rgb(189, 217, 3)
 }
 
 header {
@@ -66,6 +66,6 @@ footer {
     font-size: smaller;
 }
 
-button{
+button {
     background-color: $secondary-color;
 }
