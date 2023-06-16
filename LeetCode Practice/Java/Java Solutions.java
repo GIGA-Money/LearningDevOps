@@ -368,3 +368,41 @@ class Solution {
 /**
  * 6-13-23 two sum, hashmap.
  */
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> seen = new HashMap<>();
+        for(int i = 0; i < nums.length; i++){
+            int complement = target - nums[i];
+            if(seen.containsKey(complement)){
+                return new int[]{seen.get(complement), i};
+            }
+            seen.put(nums[i],i);
+        }
+        return new int[]{};
+    }
+}
+
+/**
+ * 6-16-23
+ */
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        if(strs.length <= 0){
+            List<List<String>> emptyReturn = new ArrayList<>();
+            emptyReturn.add(new ArrayList<>());
+            return emptyReturn;
+        }
+        Map<String, List<String>> outList = new HashMap<>();
+        //Using a ranged for loop.
+        for(String str : strs){
+            char[] sortStr = str.toCharArray();
+            Arrays.sort(sortStr);
+            String sorted = new String(sortStr);
+            if(!outList.containsKey(sorted)){
+                outList.put(sorted, new ArrayList<>());
+            }
+            outList.get(sorted).add(str);
+        }
+        return new ArrayList<>(outList.values());
+    }
+}
