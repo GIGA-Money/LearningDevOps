@@ -406,3 +406,54 @@ class Solution {
         return new ArrayList<>(outList.values());
     }
 }
+
+/**
+ * 6-20-23
+ * 347. Top K Frequent Elements.
+ * Using the bucket sort method.
+ */
+class Solution {
+    // Performing with the Bucket Sort solution.
+    public int[] topKFrequent(int[] nums, int k) {
+        /*
+        Count the frequency of each element. 
+        A hashmap counts is created to count the frequency of each element in nums.
+        for each number in nums, if the number is already a key, in counts, its count ins incremented.
+        if not a key in counts, its added with a count of 1.
+        */ 
+        Map<Integer, Integer> counts = new HashMap<>();
+        for(int num : nums)
+            counts.put(num, counts.getOrDefault(num, 0) + 1);
+
+        /*
+        Create a list of buckets.
+        An array of list buckets, is created where the index of each bucket corresponds to a frequency.
+        Each bucket will hold the elements with that frequency. 
+        For each number in counts, the number is added to the bucket that corresponds to its frequency.
+        */ 
+        List<Integer>[] buckets = new List[nums.length + 1];
+        for(int num : counts.keySet()){
+            int frequency = counts.get(num);
+            if(buckets[frequency] == null)
+                buckets[frequency] = new ArrayList<>();
+            buckets[frequency].add(num);
+        }
+
+        // collect the elemetns from the buckets
+        List<Integer> topK = new ArrayList<>();
+        for(int i = buckets.length - 1; i >= 0 && topK.size() < k; i--){
+            if(buckets[i] != null)
+                topK.addAll(buckets[i]);
+        }
+
+        /*
+        Convert the list to an array.
+        The elements in the 'topk' list are copied into the new array, results, which is then returned.
+        */ 
+        int[] result = new int[k];
+        for(int i = 0; i < k; i++)
+            result[i] = topK.get(i);
+
+        return result;
+    }
+}

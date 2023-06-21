@@ -454,3 +454,52 @@ for num in nums:
     sum += num
 print(sum)
 # %%
+
+# 347. Top K Frequent Elements: 6-20-2023.
+"""
+This heap based solution will require the collections and heapq libraries.
+Collections provides the Counter class, this takes in a dictionary subclass for counting hashable objects.
+Heapq provides and implementation of the heap queue algo, aka, the priority queue algo.
+"""
+import collections
+import heapq
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        '''
+        @params: int list numns, an integer array numberes, integer k, where k is the count 
+        of the most frequent elements that we wish to return.
+        @return: A list of the most frequent numbers requested.
+        Additional test cases can include but not limited to:
+        k equals 1. 
+        k equals the number of unique elements in the array. 
+        k is much smaller than the number of unique elements in the array.
+        k is much larger than the number of unique elements in the array.
+        All elements in the array are the same.
+        '''
+        # This handle edge case: checks if the list is just one element or less.
+        if len(nums) <= 1:
+            return nums
+        
+        # Counter the frequency of each element: the counter class is used to count the frequency of each element in 
+        # the list nums. The results, a dictionary were the keys are the elements in nums, 
+        # and the values are their frequencies.
+        freqs = collections.Counter(nums)
+        # initialize a heap.
+        heap = []
+        # Push each element ont o the heap. given each element-frequency pair in 'freqs',
+        # a tuple of (frequency, element) is pushed to the heap.
+        # The frequency is negated to make the heap behave like a max-heap.
+        # This is a result of python's implementation of a max-heap.
+        # only provides a min-heap, but we want the largest frequencies to be at the top of the heap.
+        for num, freq in freqs.items():
+            heapq.heappush(heap, (freq, num))
+            # Pop the least frequent elements from the heap:
+            # if the size of the heap exceeds 'k' the least frequent element is popped from the heap. 
+            # This is done within the loop, so the heap always contains 'k' 
+            # most frequent elements at any point during the iteration.
+            while len(heap) > k:
+                heapq.heappop(heap)
+        # Return the elements in the heap: the 'k' elements remaining in the heap are the 'k' most frequent elements.
+        # Then return in list format.
+        return [x[1] for x in heap]
