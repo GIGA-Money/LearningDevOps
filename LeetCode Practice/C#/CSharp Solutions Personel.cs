@@ -328,3 +328,30 @@ for(long l = 0; l < longArray.Length - 1; ++l)
 {
     Console.WriteLine(longArray[l]);
 }
+
+/*
+6-23-23
+238. Product of Array Except Self
+*/
+public class Solution {
+    public int[] ProductExceptSelf(int[] nums) {
+        int length = nums.Length;
+
+        int[] leftSide = new int[nums.Length];
+        int[] rightSide = new int[nums.Length];
+        int[] ans = new int[nums.Length];
+
+        leftSide[0] = 1;
+        for(int i = 1; i < length; i++)
+            leftSide[i] = nums[i-1] * leftSide[i-1];
+
+        rightSide[length - 1] = 1;
+        for(int i = length - 2; i >= 0; i--)
+            rightSide[i] = nums[i+1] * rightSide[i+1];
+
+        for(int i = 0; i < length; i++)
+            ans[i] = leftSide[i] * rightSide[i];
+
+        return ans;
+    }
+}

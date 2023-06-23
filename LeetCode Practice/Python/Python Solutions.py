@@ -503,3 +503,30 @@ class Solution:
         # Return the elements in the heap: the 'k' elements remaining in the heap are the 'k' most frequent elements.
         # Then return in list format.
         return [x[1] for x in heap]
+    
+
+# 6-23-23 238. Product of array except self
+# %%
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        # Pre-assign lenght so we don't have to bring it forward each time we need it.
+        length = len(nums)
+    
+        # Initialize two empty arrays, leftSide and rightSide.
+        leftSide, rightSide, answer = [0]*length, [0]*length, [0]*length
+    
+        # leftSide[i] contains the product of all the numbers to the left
+        leftSide[0] = 1 
+        for i in range(1, length):
+            leftSide[i] = nums[i - 1] * leftSide[i - 1]
+    
+        # rightSide[i] contains the product of all the numbers to the right
+        rightSide[length - 1] = 1
+        for i in reversed(range(length - 1)):
+            rightSide[i] = nums[i + 1] * rightSide[i + 1]
+    
+        # Construct the answer array
+        for i in range(length):
+            answer[i] = leftSide[i] * rightSide[i]
+    
+        return answer

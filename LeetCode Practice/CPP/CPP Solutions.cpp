@@ -412,3 +412,31 @@ for(long l = 0; l < longArray.size() - 1; ++l)
 {
     cout << longArray[l] << endl;
 }
+
+/*
+238. Product of Array Except Self
+6-23-23
+*/
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int length = nums.size();
+
+        vector<int> leftSide = nums;
+        vector<int> rightSide = nums;
+        vector<int> ans = nums;
+        
+        leftSide[0] = 1;
+        for(int i = 1; i < length; i++)
+            leftSide[i] = nums[i-1] * leftSide[i-1];
+
+        rightSide[length - 1] = 1;
+        for(int i = length - 2; i >= 0; i--)
+            rightSide[i] = nums[i+1] * rightSide[i+1];
+
+        for(int i = 0; i < length; i++)
+            ans[i] = rightSide[i] * leftSide[i];
+
+        return ans;
+    }
+};

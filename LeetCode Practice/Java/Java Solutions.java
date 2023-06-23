@@ -457,3 +457,41 @@ class Solution {
         return result;
     }
 }
+
+
+
+/**
+ * 6-23-23
+ * 238. Product of Array Except Self
+ */
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        // lets have an int length for easy of access.
+        int length = nums.length;
+
+        // Now lets generate new arrays of the same length of nums, these will be (by default) populated with 0.
+        int[] leftSide = new int[nums.length];
+        int[] rightSide = new int[nums.length];
+        int[] ans = new int[nums.length];
+
+        // Lets set the first value of leftSide to 1, as to not multiply anything by zero unintentionally.
+        leftSide[0] = 1;
+        // Lets start the array at value 1, and that will fill in place, 
+        // the product from 1->length, where 0 will be the destination of that product in the anwser.
+        for(int i = 1; i < length; i++) 
+        //Lets remember that we want to stop before we hit length, in going from the begining to the end (left to right), of the array.
+            leftSide[i] = nums[i-1] * leftSide[i-1];
+
+        // Now lets begin from the end of the array, and make our way to the front, same prmise, we will have to remove any potential zeros from calcuation.
+        rightSide[length - 1 ] = 1;
+        // now we have to start 2 away from length, one for correcting the 0->n-1 range, and another one because we don't want to compute the n-1 postion (which should be 1, but would prove errounius to the anwswer.)
+        for(int i = length - 2; i >= 0; i--)
+            rightSide[i] = nums[i+1] * rightSide[i+1];
+        
+        // Here we fill the answer array in with our product.
+        for(int i = 0; i < length; i++)
+            ans[i] = leftSide[i] * rightSide[i];
+
+        return ans;
+    }
+}
