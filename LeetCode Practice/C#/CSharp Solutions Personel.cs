@@ -355,3 +355,35 @@ public class Solution {
         return ans;
     }
 }
+
+/*
+36. Valid Sudoku
+6-26-23
+*/
+public class Solution {
+    public bool IsValidSudoku(char[][] board) {
+        bool[][] rows = new bool[9][];
+        bool[][] columns = new bool[9][];
+        bool[][] boxes = new bool[9][];
+         for(int i = 0; i < 9; i++){
+             rows[i] = new bool[9];
+             columns[i] = new bool[9];
+             boxes[i] = new bool[9];
+         }
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                if(board[i][j] != '.'){
+                    int num = board[i][j] - '1';
+                    int box_index = (i/3) * 3 + (j/3);
+                    if(rows[i][num] || columns[j][num] || boxes[box_index][num])
+                        return false;
+
+                    rows[i][num] = true;
+                    columns[j][num] = true;
+                    boxes[box_index][num] = true;
+                }
+            }
+        }
+        return true;
+    }
+}
