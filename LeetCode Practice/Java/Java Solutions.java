@@ -522,3 +522,26 @@ class Solution {
         return true;
     }
 }
+
+// 128 longest consecutive sequence
+// 6-30-23
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        Set<Integer> nums_set = new HashSet<>();
+        for(int num : nums)
+            nums_set.add(num);
+        int streak = 0;
+        for(int num : nums_set){
+            if(!nums_set.contains(num-1)){
+                int current = num;
+                int curr_streak = 1;
+                while(nums_set.contains(current + 1)){
+                    current++;
+                    curr_streak++;
+                }
+                streak = Math.max(streak, curr_streak);
+            }
+        }
+        return streak;
+    }
+}

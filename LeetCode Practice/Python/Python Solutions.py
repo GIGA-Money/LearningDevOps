@@ -553,3 +553,26 @@ class Solution:
                     boxes[box_index].add(num)
 
         return True
+    
+
+# 6-30-23
+# Longest consecutive sequence
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        # The set that contains all the numbers in the input list
+        nums_set = set(nums)
+        #  the length of the longest consecutive sequence found
+        streak = 0
+        # for each number in the set, if its thhe first number of a sequence (IE num-1 is not in the set),
+        # we check for all other numbers in the sequence.
+        for num in nums_set:
+            if num - 1 not in nums_set:
+                current = num
+                current_streak = 1
+                while current + 1 in nums_set:
+                    current += 1
+                    current_streak += 1
+                
+                streak = max(streak, current_streak)
+            
+        return streak

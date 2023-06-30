@@ -387,3 +387,26 @@ public class Solution {
         return true;
     }
 }
+
+//128 consecutive sequence
+// 6-30-23
+public class Solution {
+    public int LongestConsecutive(int[] nums) {
+        HashSet<int> nums_set = new HashSet<int>();
+        foreach(int num in nums)
+            nums_set.Add(num);
+        int streak = 0;
+        foreach(int num in nums_set){
+            if(!nums_set.Contains(num-1)){
+                int current = num;
+                int curr_streak = 1;
+                while(nums_set.Contains(current + 1)){
+                    current++;
+                    curr_streak++;
+                }
+                streak = Math.Max(streak, curr_streak);
+            }
+        }
+        return streak;
+    }
+}

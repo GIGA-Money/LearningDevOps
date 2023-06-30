@@ -543,3 +543,29 @@ public:
         return true;
     }
 };
+
+
+//128 consecutive sequence:
+// 6-30-23
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        set<int> nums_set;
+        int streak = 0;
+        for(int num : nums)
+            nums_set.insert(num);
+
+        for(int num : nums_set){
+            if(nums_set.find(num-1) == nums_set.end()){
+                int curr = num;
+                int curr_streak = 1;
+                while(nums_set.find(curr + 1) != nums_set.end()){
+                    curr++;
+                    curr_streak++;
+                }
+                streak = max(streak, curr_streak);
+            }
+        }
+        return streak;
+    }
+};
