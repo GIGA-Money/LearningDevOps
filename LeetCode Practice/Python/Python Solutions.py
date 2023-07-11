@@ -563,7 +563,7 @@ class Solution:
         nums_set = set(nums)
         #  the length of the longest consecutive sequence found
         streak = 0
-        # for each number in the set, if its thhe first number of a sequence (IE num-1 is not in the set),
+        # for each number in the set, if its the first number of a sequence (IE num-1 is not in the set),
         # we check for all other numbers in the sequence.
         for num in nums_set:
             if num - 1 not in nums_set:
