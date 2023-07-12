@@ -410,3 +410,35 @@ public class Solution {
         return streak;
     }
 }
+
+/*
+7/11/23
+20. Valid Parentheses
+*/
+public class Solution {
+    public bool IsValid(string s) {
+        if(s.Length % 2 != 0)
+            return false;
+
+        // Note we can make a non-generic object stack, or a static type stack, so <T> is optional, but would require casting later.   
+        Stack<char> stack = new Stack<char>();
+        // Given a hashtable, this would be duable, but to keep with the static typing, we wil lstay with the dictionary.
+        Dictionary<char, char> charSet = new Dictionary<char, char>();
+        charSet.Add(')', '(');
+        charSet.Add(']', '[');
+        charSet.Add('}', '{');
+        // C# does let us iterrate over a String like its a char array.
+        foreach(char top in s){
+            // Lets not forget our Caps on the properties and methods.
+            if(charSet.ContainsKey(top)){
+                char topMe = stack.Count == 0 ? '#' : stack.Pop();
+                if(topMe != charSet[top])
+                    return false;
+            }
+            else
+                stack.Push(top);
+        }
+        // We don't get a empty like java, so we have to check the count against 0, same as we see above.
+        return stack.Count == 0;
+    }
+} 

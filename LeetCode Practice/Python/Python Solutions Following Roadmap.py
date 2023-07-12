@@ -210,3 +210,29 @@ class Solution:
             else:
                 outList[storString] = [i]
         return list(outList.values())
+    
+# 7/11/23
+# 20. Valid Parentheses
+class Solution:
+# we use a stack to keep track of the opening brackets. 
+# We pop an element from the stack each time we encounter a closing bracket and check if it matches the opening bracket. 
+# If it doesn't match or the stack is empty, we return False. 
+# If we've gone through the entire string and the stack is empty, we return True, indicating that the parentheses are valid.
+    def isValid(self, s: str) -> bool:
+        if (len(s) % 2) != 0:
+            return False
+
+        stack = []
+        # Mapping of Parentheses: A dictionary is used to map closing brackets to their corresponding opening brackets. 
+        # This makes it easier to check if the brackets match.
+        mapMe = {')': '(', '}': '{', ']': '['}
+        for top in s:
+            if top in mapMe:
+                # Checking Characters: The if char in mapping: line checks if the current
+                topMe = stack.pop() if stack else '#'
+                if mapMe[top] != topMe:
+                    return False
+            else:
+                stack.append(top)
+        
+        return not stack

@@ -545,3 +545,41 @@ class Solution {
         return streak;
     }
 }
+
+/*
+7/11/23
+20. Valid Parentheses
+*/ 
+class Solution {
+    public boolean isValid(String s) {
+        // I check for the edge cases of valid length, odd lengths will never be possible.
+        if(s.length() % 2 != 0)
+            return false;
+        // Lets create a stack, using the untils stack, must recall that Java for type generation to use the full spelling and capped.
+        Stack<Character> stack = new Stack<>();
+        // Lets use a hasmap.
+        Map<Character, Character> char_set = new HashMap<>();
+        // because of how few items we have, we will just create and put here in the method.
+        char_set.put(')','(');
+        char_set.put('}','{');
+        char_set.put(']','[');
+
+        // lets iterate throught the string, but we will have to make it a char array first. 
+        for(char top : s.toCharArray()){
+            // we need to use Contains Key, to check if any object mapping exist, returns a bool.
+            if(char_set.containsKey(top)){
+                // Here we will either eigher assign topMe the '#' char (indicating not valid) or the top of the stack (that must also be popped).
+                char topMe = stack.empty() ? '#' : stack.pop();
+                // Now if the topMe is not a valid option in the char set, then we can just return false.
+                if(topMe != char_set.get(top)){
+                    return false;
+                }
+            }
+            // if we continue not see a fail, we can push the (should be valid) top char into thte stack.
+            else
+                stack.push(top);
+        }
+        // the status of the stack will be our return preference.
+        return stack.empty();
+    }
+}
