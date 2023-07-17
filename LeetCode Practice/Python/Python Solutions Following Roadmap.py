@@ -236,3 +236,29 @@ class Solution:
                 stack.append(top)
         
         return not stack
+    
+#  7/17/23
+# 155. Min Stack
+class MinStack:
+
+    def __init__(self):
+        self.stack = []
+        self.minEl = []    
+
+    def push(self, val: int) -> None:
+        if len(self.minEl) == 0: 
+            self.minEl.append(val) 
+        else: 
+            self.minEl.append(min(self.minEl[-1], val))
+        self.stack.append(val)      
+
+    def pop(self) -> None:
+        if len(self.stack) == 0: raise Exception("Stack Status Empty")
+        del self.minEl[-1]
+        del self.stack[-1]
+
+    def top(self) -> int:
+        return None if len(self.stack) == 0 else self.stack[-1]   
+
+    def getMin(self) -> int:
+        return None if len(self.minEl) == 0 else self.minEl[-1]
