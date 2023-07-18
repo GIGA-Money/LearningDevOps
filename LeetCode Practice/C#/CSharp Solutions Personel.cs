@@ -442,3 +442,39 @@ public class Solution {
         return stack.Count == 0;
     }
 } 
+
+/*
+155 min stack
+*/ 
+public class MinStack {
+
+    Stack<int> stack; 
+    Stack<int> minStack;
+
+    public MinStack() {
+        stack = new Stack<int>();
+        minStack = new Stack<int>();
+    }
+    
+    public void Push(int val) {
+        if(this.stack.Count == 0)
+            this.minStack.Push(val);
+        else
+            this.minStack.Push(Math.Min(this.minStack.Peek(), val));
+        
+        this.stack.Push(val); 
+    }
+    
+    public void Pop() {
+        this.stack.Pop();
+        this.minStack.Pop();            
+    }
+    
+    public int Top() {
+        return this.stack.Count == 0 ? -1 : this.stack.Peek();
+    }
+    
+    public int GetMin() {
+         return this.minStack.Count == 0 ? -1 : this.minStack.Peek();
+    }
+}

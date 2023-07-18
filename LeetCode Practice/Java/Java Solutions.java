@@ -583,3 +583,41 @@ class Solution {
         return stack.empty();
     }
 }
+
+/*
+155 min Stack
+*/ 
+import java.util.EmptyStackException;
+class MinStack {
+
+    Stack<Integer> stack;
+    Stack<Integer> minStack;
+
+    public MinStack() {
+      stack = new Stack<Integer>();
+      minStack = new Stack<Integer>();
+    }
+    
+    public void push(int val) {
+        if(stack.isEmpty())
+            minStack.push(val);
+        else
+            minStack.push(Math.min(minStack.peek(), val));
+        stack.push(val);        
+    }
+    
+    public void pop() {
+        if(stack.isEmpty())
+            throw new EmptyStackException();
+        stack.pop();
+        minStack.pop();
+    }
+    
+    public int top() {
+        return stack.isEmpty() ? -1 : stack.peek();
+    }
+    
+    public int getMin() {
+        return minStack.isEmpty() ? -1 : minStack.peek();
+    }
+}
