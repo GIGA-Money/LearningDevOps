@@ -621,3 +621,31 @@ class MinStack {
         return minStack.isEmpty() ? -1 : minStack.peek();
     }
 }
+
+/*
+150. Evaluate Reverse Polish Notation
+7/23/23
+ */
+import java.util.function.BiFunction;
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> stack = new Stack<>();
+        Map<String, BiFunction<Integer, Integer, Integer>> operators = new HashMap<>();
+        operators.put("+", (y,x) -> x + y);
+        operators.put("-", (y,x) -> x - y);
+        operators.put("*", (y,x) -> x * y);
+        operators.put("/", (y,x) -> x / y);
+        int result = 0;
+        for(String token : tokens){
+            if(operators.containsKey(token)){
+                int y = stack.pop();
+                int x = stack.pop();
+                result = operators.get(token).apply(y,x);
+                stack.push(result);
+            }
+            else
+                stack.push(Integer.parseInt(token));
+        }
+        return stack.pop();
+    }
+}

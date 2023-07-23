@@ -478,3 +478,26 @@ public class MinStack {
          return this.minStack.Count == 0 ? -1 : this.minStack.Peek();
     }
 }
+
+// 7/23/23 150. Evaluate Reverse Polish Notation
+
+    public int EvalRPN(string[] tokens) {
+        Stack<int> stack = new Stack<int>();
+        Dictionary<string, Func<int, int, int>> operators = new Dictionary<string, Func<int, int, int>>();
+        operators.Add("+", (y,x) => x + y);
+        operators.Add("-", (y,x) => x - y);
+        operators.Add("*", (y,x) => x * y);
+        operators.Add("/", (y,x) => x / y);
+        int result = 0;
+        foreach(string token in tokens){
+            if(operators.ContainsKey(token)){
+                int y = stack.Pop();
+                int x = stack.Pop();
+                result = operators[token](y, x);
+                stack.Push(result);
+            }
+            else
+                stack.Push(int.Parse(token));
+        }
+        return stack.Pop();
+    }

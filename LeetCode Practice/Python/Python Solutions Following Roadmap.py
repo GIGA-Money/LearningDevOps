@@ -262,3 +262,25 @@ class MinStack:
 
     def getMin(self) -> int:
         return None if len(self.minEl) == 0 else self.minEl[-1]
+
+#7/23/23 150. Evaluate Reverse Polish Notation
+ class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        stack = []
+        operators = {
+            '+': lambda y, x: x + y,
+            '-': lambda y, x: x - y,
+            '*': lambda y, x: x * y,
+            '/': lambda y, x: int(x/y),
+        }
+        result = 0
+        for token in tokens:
+            if token in operators:
+                y = stack.pop()
+                x = stack.pop()
+                result = operators[token](y, x)
+                stack.append(result)
+            else:
+                stack.append(int(token))
+        
+        return result
