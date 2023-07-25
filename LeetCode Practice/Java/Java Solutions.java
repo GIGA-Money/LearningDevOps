@@ -649,3 +649,29 @@ class Solution {
         return stack.pop();
     }
 }
+
+/*
+ * 7-24-23
+ * 22. Generate Parentheses
+ */
+class Solution {
+    ArrayList<String> result;
+    int myN;
+    public List<String> generateParenthesis(int n) {
+        result = new ArrayList<String>();
+        myN = n;
+        generate("", 0 , 0);
+        return result;
+    }
+    public void generate(String combo, int open, int closed){
+        if(combo.length() == myN * 2)
+            result.add(combo);
+        else
+        {
+            if(open < myN)
+                generate(combo + "(", open + 1, closed);
+            if(closed< open)
+                generate(combo + ")", open, closed + 1);
+        }
+    }
+}

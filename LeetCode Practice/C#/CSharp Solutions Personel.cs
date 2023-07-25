@@ -501,3 +501,28 @@ public class MinStack {
         }
         return stack.Pop();
     }
+
+/*
+ * 7-24-23
+ * 22. Generate Parentheses
+ */
+ public class Solution {
+    IList<string> result;
+    int myN;
+    public IList<string> GenerateParenthesis(int n) {
+        this.result = new List<string>();
+        this.myN = n;
+        generate("", 0, 0);
+        return this.result;
+    }
+    public void generate(string combo, int openUsed, int closedUsed){
+        if(combo.Length == this.myN * 2)
+            this.result.Add(combo);
+        else{
+            if(openUsed < this.myN)
+                generate(combo + "(", openUsed + 1, closedUsed);
+            if(closedUsed < openUsed)
+                generate(combo + ")", openUsed, closedUsed + 1);
+        }
+    }
+}

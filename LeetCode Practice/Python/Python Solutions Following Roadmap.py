@@ -284,3 +284,23 @@ class MinStack:
                 stack.append(int(token))
         
         return result
+    
+# 7-24-23 22. Generate Parentheses
+class Solution:
+    # Open, closed, are the counters that keep track of how many open parentheses and closed parentheses we have a added to our current combo so far.
+    # At any point during the construction of the string we can add more '(' as long as we don't exceed 'n' and we can add more ')' as long as it doesn't exceed the current count of '('.
+    # Open - this is the count of open parentheses that we added to our current combo. Starting with 0 and increment it each time we add an open par to our combo.
+        # we can add an open par as long as open is less than 'n' because we need to have 'n' pairs of parentheses total.
+    # Close - this is the num of closed parentheses that we have added to our current combo, Starting with 0 and increment it to each time we add a close par to our combo,
+    def generateParenthesis(self, n: int) -> List[str]:
+        def possibleParenthesis(combo: str, openUsed: int, closedUsed: int) -> List[str]:
+            if len(combo) == 2 * n:
+                result.append(combo)
+            else:
+                if openUsed < n:
+                    possibleParenthesis(combo + '(', openUsed + 1, closedUsed)                    
+                if closedUsed < openUsed:
+                    possibleParenthesis(combo + ')', openUsed, closedUsed + 1)      
+        result = []
+        possibleParenthesis("", 0, 0)
+        return result
