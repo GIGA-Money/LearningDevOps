@@ -41,6 +41,11 @@ Log for 11/15/22
 * good thing GIT never changes.
 * got some basic aliases going.
 
+
+### 7-26-23 Update:
+* I will continue to update the individual logs as I do the task.
+* Started a journal project using .NET core/Blazor web tools as a way to continue my learning journey.
+
 ### Got some books in place
 * Git: Mastering Version Control, ISBN 978-1-78712-320-5 (now reference)
 * Hands-On Kubernetes on Windows, ISBN 978-1-83882-156-2
