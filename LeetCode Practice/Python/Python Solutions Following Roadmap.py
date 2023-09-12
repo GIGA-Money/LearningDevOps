@@ -23,7 +23,7 @@ The above code was practice for the following problem:
 
 # Problem number: 217. Contains Duplicate
 """
-Given an integer array nums, return true if any value appears at least twice in the array, 
+Given an integer array nums, return true if any value appears at least twice in the array,
 and return false if every element is distinct.
 https://leetcode.com/problems/contains-duplicate/
 """
@@ -34,7 +34,7 @@ class Solution:
         """
         @Params: nums: List[int]
         @Returns: bool
-        I opted for the set length comparison, my 2 pointer solution was 
+        I opted for the set length comparison, my 2 pointer solution was
         actually timing out because it was to slow for the super sized testcases.
         """
         if len(nums) <= 1:
@@ -68,7 +68,7 @@ class Solution:
         @Params: s: str, t: str
         @Returns: bool
         I did decide to use the count method, knowing it is slower.
-        This was just want came to mind at the time. 
+        This was just want came to mind at the time.
         """
         if len(s) != len(t):
             return False
@@ -156,7 +156,7 @@ class Solution:
             countS[s[i]] = 1 + countS.get(s[i], 0)
             countT[t[i]] = 1 + countT.get(t[i], 0)
         return countS == countT
-    
+
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         """
         @Params: List of strings strs: List[str]
@@ -171,24 +171,25 @@ class Solution:
         for i in strs:
             print(i)
             for j in strs:
-                if self.isAnagram(i,j):
+                if self.isAnagram(i, j):
                     outList.append(j)
-                    print(i,j)
+                    print(i, j)
         return outList
-    
+
     """
-    This function groupAnagrams takes a list of strings as input and groups all the anagrams together into separate lists. 
+    This function groupAnagrams takes a list of strings as input and groups all the anagrams together into separate lists.
     It uses a dictionary to store the anagrams where the keys are the sorted version of the string and the values are the original strings.
-    The function loops through each string in the input list, 
-    sorts the string to create a sorted version of the string and stores it in storString. 
-    It then checks if this storString is already in the dictionary, 
-    if yes, it appends the original string to the list of strings associated with the key (the sorted string) 
-    in the dictionary. If not, it adds a new key-value pair to the dictionary with the key as the sorted string 
+    The function loops through each string in the input list,
+    sorts the string to create a sorted version of the string and stores it in storString.
+    It then checks if this storString is already in the dictionary,
+    if yes, it appends the original string to the list of strings associated with the key (the sorted string)
+    in the dictionary. If not, it adds a new key-value pair to the dictionary with the key as the sorted string
     and the value as a list containing the original string.
-    The output of the function is a list of lists of strings, 
-    where each list contains all the anagrams. 
+    The output of the function is a list of lists of strings,
+    where each list contains all the anagrams.
     The function returns the values of the dictionary as a list using list(outList.values()).
-    """    
+    """
+
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         # This is a proper brute force solution.
         """
@@ -204,26 +205,28 @@ class Solution:
             return [[""]]
         outList = {}
         for i in strs:
-            storString=str(sorted(i))
+            storString = str(sorted(i))
             if storString in outList:
                 outList[storString].append(i)
             else:
                 outList[storString] = [i]
         return list(outList.values())
-    
+
 # 7/11/23
 # 20. Valid Parentheses
+
+
 class Solution:
-# we use a stack to keep track of the opening brackets. 
-# We pop an element from the stack each time we encounter a closing bracket and check if it matches the opening bracket. 
-# If it doesn't match or the stack is empty, we return False. 
+# we use a stack to keep track of the opening brackets.
+# We pop an element from the stack each time we encounter a closing bracket and check if it matches the opening bracket.
+# If it doesn't match or the stack is empty, we return False.
 # If we've gone through the entire string and the stack is empty, we return True, indicating that the parentheses are valid.
     def isValid(self, s: str) -> bool:
         if (len(s) % 2) != 0:
             return False
 
         stack = []
-        # Mapping of Parentheses: A dictionary is used to map closing brackets to their corresponding opening brackets. 
+        # Mapping of Parentheses: A dictionary is used to map closing brackets to their corresponding opening brackets.
         # This makes it easier to check if the brackets match.
         mapMe = {')': '(', '}': '{', ']': '['}
         for top in s:
@@ -234,23 +237,25 @@ class Solution:
                     return False
             else:
                 stack.append(top)
-        
+
         return not stack
-    
+
 #  7/17/23
 # 155. Min Stack
+
+
 class MinStack:
 
     def __init__(self):
         self.stack = []
-        self.minEl = []    
+        self.minEl = []
 
     def push(self, val: int) -> None:
-        if len(self.minEl) == 0: 
-            self.minEl.append(val) 
-        else: 
+        if len(self.minEl) == 0:
+            self.minEl.append(val)
+        else:
             self.minEl.append(min(self.minEl[-1], val))
-        self.stack.append(val)      
+        self.stack.append(val)
 
     def pop(self) -> None:
         if len(self.stack) == 0: raise Exception("Stack Status Empty")
@@ -258,12 +263,12 @@ class MinStack:
         del self.stack[-1]
 
     def top(self) -> int:
-        return None if len(self.stack) == 0 else self.stack[-1]   
+        return None if len(self.stack) == 0 else self.stack[-1]
 
     def getMin(self) -> int:
         return None if len(self.minEl) == 0 else self.minEl[-1]
 
-#7/23/23 150. Evaluate Reverse Polish Notation
+# 7/23/23 150. Evaluate Reverse Polish Notation
  class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         stack = []
@@ -304,3 +309,44 @@ class Solution:
         result = []
         possibleParenthesis("", 0, 0)
         return result
+
+#739. Daily temperatures
+# 9-11-23
+# use a stack to keep track of the indices of the temperatures. 
+# You iterate over the list of temperatures and for each temperature, you check if it is greater than the temperature at the index at the top of the stack. 
+# If it is, you pop the index from the stack and calculate the difference in days, storing it in the result array. 
+# You continue this process until the stack is empty or the current temperature is less than the temperature at the index at the top of the stack. 
+# Then, you push the current index onto the stack. 
+# We initialize n to the length of the temperatures list and res to a list of zeros with the same length.
+# We initialize an empty stack to keep track of the indices of the temperatures.
+# We iterate over the list of temperatures using a for loop.
+# Inside the loop, we use a while loop to check if the stack is not empty and the current temperature is greater than the temperature at the index at the top of the stack. If both conditions are true, we pop the index from the stack and calculate the difference in days, storing it in the result array.
+# Outside the while loop, we add the current index to the stack.
+# After the for loop, we return the result array.
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        result = [0] * len(temperatures)
+        stack = []
+        for i in range(len(temperatures)):
+            while stack and temperatures[i] > temperatures[stack[-1]]:
+                j = stack.pop()
+                result[j] = i - j
+            stack.append(i)
+        return result
+    
+# 1021 greatest common divisor of strings
+# We define a nested function gcd that takes two integers a and b and returns their greatest common divisor using the Euclidean algorithm.
+# We check if the concatenation of str1 and str2 is not equal to the concatenation of str2 and str1. If this is true, we return an empty string because no common divisor exists.
+# We find the GCD of the lengths of str1 and str2 using the gcd function and store it in len_gcd.
+# We return the prefix of str1 of length len_gcd.
+class Solution:
+    def gcd(a: int, b: int) -> int:
+        while b:
+            a, b = b, a % b
+        return a
+        
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+        if str1 + str2 != str2 + str1:
+            return ""
+        len_gcd = gcd(len(str1), len(str2))
+        return str1[:len_gcd]
