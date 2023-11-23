@@ -1,7 +1,23 @@
 from vehicle import Vehicle
 from Signal import Signal
+import argparse
+import json
 
 signal_network = {}
+
+
+def create_traffic_network(config):
+    signals = {}
+    for signal_name, signal_info in config.items():
+        signal = Signal(
+            signal_name,
+            signal_info['cycle_time'],
+            signal_info['outbound_nodes'],
+            signal_info['queue_sizes']
+        )
+        signal.update_light_schedule(signal_info['light_schedule'])
+        signals[signal_name] = signal
+    return signals
 
 
 def create_traffic_network():
@@ -27,6 +43,11 @@ def simulate_traffic(signals, total_simulation_time, vehicle_count):
     vehicles = [Vehicle(f"V{i}", ['A', 'B', 'C'], 0)
                 for i in range(vehicle_count)]
 
+    # Initialize metrics
+    total_travel_time = 0
+    reroutes = 0
+    vehicles_completed = 0
+
     for time in range(total_simulation_time):
         # Update each signal's queue based on the light schedule
         for signal in signals.values():
@@ -35,9 +56,20 @@ def simulate_traffic(signals, total_simulation_time, vehicle_count):
         # Update vehicle positions and handle rerouting if necessary
         for vehicle in vehicles:
             vehicle.move()
+            if vehicle.end_time is not None:
+                total_travel_time += vehicle.end_time - vehicle.start_time
+                vehicles_completed += 1
+            if vehicle.rerouted:
+                reroutes += 1
             # Check for congestion and reroute if needed
 
-    # Additional logic for analyzing and reporting simulation results
+    # Calculate average delay per vehicle
+    average_delay = total_travel_time / vehicle_count
+
+    # Display results
+    print(f"Average Delay Per Vehicle: {average_delay}")
+    print(f"Total Vehicles Rerouted: {reroutes}")
+    print(f"Vehicles Completed Journey: {vehicles_completed}")
 
 
 def get_signal_from_network(signal_name):
@@ -50,7 +82,6 @@ def get_signal_from_network(signal_name):
         return signal_network[signal_name]
     else:
         # Handle the case where the signal is not found in the network
-        # This could be logging an error, raising an exception, or a default behavior
         # For now, we'll just return None
         return None
 
@@ -63,10 +94,6 @@ def determine_direction(current_signal, next_signal):
     This function can also be part of the simulation script, as it requires knowledge of the network layout to determine the direction.
     It will take two signal names (current and next) and return the direction the vehicle should take.
     """
-    # Example logic for a simple grid layout
-    # Replace with actual logic based on your network's layout
-    # Example layout:
-
     # Signal names might be like 'A1', 'B2', etc., where letter represents a row and number represents a column
     row_current, col_current = current_signal[0], current_signal[1]
     row_next, col_next = next_signal[0], next_signal[1]
@@ -84,11 +111,23 @@ def determine_direction(current_signal, next_signal):
 
 
 def main():
-    total_simulation_time = 1000  # Set the total simulation duration
-    vehicle_count = 50  # Set the number of vehicles in the simulation
+    parser = argparse.ArgumentParser(
+        description='Traffic Simulation Parameters')
+    parser.add_argument('--config_file', type=str,
+                        help='Path to configuration file')
+    args = parser.parse_args()
 
-    signals = create_traffic_network()
-    simulate_traffic(signals, total_simulation_time, vehicle_count)
+    if args.config_file:
+        with open(args.config_file, 'r') as file:
+            total_simulation_time = 1000  # Set the total simulation duration
+            vehicle_count = 50  # Set the number of vehicles in the simulation
+            config = json.load(file)
+            signals = create_traffic_network(config)
+    else:
+        total_simulation_time = 1000  # Set the total simulation duration
+        vehicle_count = 50  # Set the number of vehicles in the simulation
+        signals = create_traffic_network()
+        simulate_traffic(signals, total_simulation_time, vehicle_count)
 
     # Analyze and display results
 

@@ -12,7 +12,6 @@ class Signal:
     def get_current_light_phase(self, current_time):
         # Logic to determine the current light phase based on the cycle configuration
         # Returns a list of directions that are currently green
-        # Placeholder implementation, needs to be customized based on your specific light cycle configuration
         cycle_position = current_time % self.cycle_length
         green_directions = []
         for direction, (start, end) in self.light_cycle.items():
