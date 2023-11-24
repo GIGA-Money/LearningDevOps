@@ -90,7 +90,7 @@ The project consists of three main components:
         
 4. **Testing**:
 
-    * Run `python -m unittest test_simulation.py` to execute unit tests.
+    * Run `python -m unittest TrafficUnitTest.py` to execute unit tests.
 
 **Testing**   
 
