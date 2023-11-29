@@ -51,7 +51,7 @@ def simulate_traffic(signals, total_simulation_time, vehicle_count):
     for time in range(total_simulation_time):
         # Update each signal's queue based on the light schedule
         for signal in signals.values():
-            signal.process_queue(time)
+            signal.calculate_congestion()
 
         # Update vehicle positions and handle rerouting if necessary
         for vehicle in vehicles:

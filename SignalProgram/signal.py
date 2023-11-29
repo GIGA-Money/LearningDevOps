@@ -1,13 +1,14 @@
-from SignalProgram.simulation import get_signal_from_network
+from simulation import get_signal_from_network
 
 
 class Signal:
-    def __init__(self, name, cycle_time, outbound_nodes):
+    def __init__(self, name, cycle_time, outbound_nodes, connections, queue_limits):
         self.name = name
         self.cycle_time = cycle_time
         self.outbound_nodes = outbound_nodes  # Dict with node names and queue details
         # Queues for each outbound node
         self.queues = {node: [] for node in outbound_nodes}
+        self.congestion_levels = {direction: 0 for direction in connections}
 
     def get_current_light_phase(self, current_time):
         # Logic to determine the current light phase based on the cycle configuration
@@ -83,3 +84,16 @@ class Signal:
                 # If rerouting fails, delay the vehicle at the current signal
                 # This could be represented by adding the vehicle to a special 'delayed' queue
                 self.queues.get('delayed', []).append(vehicle)
+
+    def calculate_congestion(self):
+        # Logic to calculate congestion for each route
+        for direction, queue in self.queues.items():
+            self.congestion_levels[direction] = len(
+                queue) / self.queue_limits[direction]
+
+    def suggest_route(self, destination):
+        # Basic logic: Find the least congested route
+        # More complex logic can consider signal timings and other factors
+        least_congested_route = min(
+            self.congestion_levels, key=self.congestion_levels.get)
+        return least_congested_route if self.congestion_levels[least_congested_route] < self.congestion_levels[destination] else destination
