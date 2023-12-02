@@ -1,12 +1,9 @@
-import os
 from nltk.tokenize import word_tokenize
 import logging
 import re
-import nltk
-# nltk.download('punkt')
 
-# Set up logging
-logging.basicConfig(filename='classification_log.txt', level=logging.INFO)
+
+# logging.basicConfig(filename='classification_log.txt', level=logging.INFO)
 
 
 def check_recursion(tokens):
@@ -94,7 +91,7 @@ def process_snippets(filename):
 
 
 def main():
-    filename = "Snippet Classification\\test.txt"  # Default filename
+    filename = "Snippet Classification\\test.txt"
     process_snippets(filename)
 
 
