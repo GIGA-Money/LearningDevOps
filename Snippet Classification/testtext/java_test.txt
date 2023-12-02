@@ -1,0 +1,35 @@
+public class Main {
+
+    public static void main(String[] args) {
+        process(12);
+        System.out.println(factorial(5));
+        increment(10);
+    }
+
+    public static void process(int x) {
+        System.out.println("Entering process");
+        if (x > 5) {
+            System.out.println("x is big");
+            if (x > 10) {
+                System.out.println("x is very big!");
+            }
+        } else if (x < 0) {
+            System.out.println("x is negative");
+        }
+        System.out.println("Exiting process");
+    }
+
+    public static int factorial(int x) {
+        if (x == 0) {
+            return 1;
+        } else {
+            return x * factorial(x - 1);
+        }
+    }
+
+    public static void increment(int x) {
+        int y = x + 1;
+        int z = y + 1;
+        System.out.println(z);
+    }
+}

@@ -1,0 +1,33 @@
+using System;
+
+class Program {
+    static void Main(string[] args) {
+        Process(12);
+        Console.WriteLine(Factorial(5));
+        Increment(10);
+    }
+
+    static void Process(int x) {
+        Console.WriteLine("Entering process");
+        if (x > 5) {
+            Console.WriteLine("x is big");
+            if (x > 10) {
+                Console.WriteLine("x is very big!");
+            }
+        } else if (x < 0) {
+            Console.WriteLine("x is negative");
+        }
+        Console.WriteLine("Exiting process");
+    }
+
+    static int Factorial(int x) {
+        if (x == 0) return 1;
+        else return x * Factorial(x - 1);
+    }
+
+    static void Increment(int x) {
+        int y = x + 1;
+        int z = y + 1;
+        Console.WriteLine(z);
+    }
+}

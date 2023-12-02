@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+void process(int x) {
+    printf("Entering process\n");
+    if (x > 5) {
+        printf("x is big\n");
+        if (x > 10) {
+            printf("x is very big!\n");
+        }
+    } else if (x < 0) {
+        printf("x is negative\n");
+    }
+    printf("Exiting process\n");
+}
+
+int factorial(int x) {
+    if (x == 0) return 1;
+    else return x * factorial(x - 1);
+}
+
+void increment(int x) {
+    int y = x + 1;
+    int z = y + 1;
+    printf("%d\n", z);
+}
+
+int main() {
+    process(12);
+    printf("%d\n", factorial(5));
+    increment(10);
+    return 0;
+}

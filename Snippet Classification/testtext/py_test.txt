@@ -1,0 +1,30 @@
+# Snippet with nested conditionals
+def process(x):
+   print("Entering process")
+   if x > 5:
+      print("x is big")
+      if x > 10:
+         print("x is very big!")
+   elif x < 0:
+      print("x is negative")
+   print("Exiting process")
+
+   
+# Snippet with recursion
+def factorial(x):
+   if x == 0: 
+      return 1
+   else:   
+      return x * factorial(x-1)
+
+
+# Snippet with multiple variables and assignments 
+def increment(x):
+   y = x + 1
+   z = y + 1
+   print(z)
+   
+
+process(12)
+print(factorial(5)) 
+increment(10)

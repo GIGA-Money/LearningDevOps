@@ -1,0 +1,32 @@
+#include <iostream>
+
+void process(int x) {
+    std::cout << "Entering process" << std::endl;
+    if (x > 5) {
+        std::cout << "x is big" << std::endl;
+        if (x > 10) {
+            std::cout << "x is very big!" << std::endl;
+        }
+    } else if (x < 0) {
+        std::cout << "x is negative" << std::endl;
+    }
+    std::cout << "Exiting process" << std::endl;
+}
+
+int factorial(int x) {
+    if (x == 0) return 1;
+    else return x * factorial(x - 1);
+}
+
+void increment(int x) {
+    int y = x + 1;
+    int z = y + 1;
+    std::cout << z << std::endl;
+}
+
+int main() {
+    process(12);
+    std::cout << factorial(5) << std::endl;
+    increment(10);
+    return 0;
+}
