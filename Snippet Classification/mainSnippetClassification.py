@@ -3,10 +3,15 @@ import logging
 import re
 
 
-# logging.basicConfig(filename='classification_log.txt', level=logging.INFO)
-
-
 def check_recursion(tokens):
+    """
+    Check if there is recursion in the given tokens.
+
+    >>> check_recursion(['def', 'foo', 'foo'])
+    True
+    >>> check_recursion(['def', 'foo', 'bar'])
+    False
+    """
     function_name = None
     for idx, token in enumerate(tokens):
         if token == "def" or token == "function":
@@ -17,6 +22,14 @@ def check_recursion(tokens):
 
 
 def check_nested_conditionals(tokens):
+    """
+    Check for nested conditional statements in tokens.
+
+    >>> check_nested_conditionals(['if', 'if', 'end', 'end'])
+    True
+    >>> check_nested_conditionals(['if', 'end'])
+    False
+    """
     depth = 0
     max_depth = 0
     for t in tokens:
@@ -29,6 +42,14 @@ def check_nested_conditionals(tokens):
 
 
 def check_multiple_assignments(tokens):
+    """
+    Check for multiple assignments in a single statement.
+
+    >>> check_multiple_assignments(['a,', 'b', '=', '5,', '6'])
+    True
+    >>> check_multiple_assignments(['a', '=', '5'])
+    False
+    """
     assignment_pattern = re.compile(r'(\w+,\s*)+\w+\s*=')
     return bool(assignment_pattern.search(' '.join(tokens)))
 
@@ -96,4 +117,8 @@ def main():
 
 
 if __name__ == "__main__":
+    """
+    python -m doctest -v mainSnippetClassification.py
+
+    """
     main()
