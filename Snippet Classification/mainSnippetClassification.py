@@ -87,10 +87,12 @@ def check_type2(tokens):
 
 
 def classify_code(tokens):
-    if check_type3(tokens):
-        return "Regular/Finite State"
-    elif check_type2(tokens):
+    # First check for context-free (Type 2) patterns
+    if check_type2(tokens):
         return "Context-Free"
+    # Then check for regular/finite state (Type 3) patterns
+    elif check_type3(tokens):
+        return "Regular/Finite State"
     else:
         return "Unclassified"
 
