@@ -19,14 +19,14 @@
             <header class="card__header">
                 <i class="fa-brands fa-youtube ytIcon" alt="Youtube"></i>
                 <div>
-                    <h3>YouTuber GiG</h3>
+                    <h3>YouTube</h3>
                     <p>Verified Tuber</p>
-                    <!-- <div><input class="red-input" value="I'll be red when focused." /></div>
+                    <!-- <div><input class="red-input" value="I'll be red." /></div>
      Input field practice and on focus example-->
                 </div>
             </header>
             <p class="card__lead">
-                I've been a YouTuber for 5-8 years on and off.
+                I've enjoyed YouTube.
             </p>
             <p class="card_quote">
                 I've always been impressed with the archiving of my old videos.
@@ -82,27 +82,27 @@
             <header class="card__header">
                 <i class="fa-brands fa-twitter twtrIcon" alt="twtr"></i>
                 <div>
-                    <h3>Musk Favorite to troll</h3>
-                    <p>Verified to be trolled by Musk more than once.</p>
+                    <h3>Funny stuff</h3>
+                    <p>Verified.</p>
                 </div>
             </header>
             <p class="card__lead">
-                I've opened myself up to getting trolled, definitely on purpose.
+                I've opened myself up.
             </p>
             <p class="card__quote">
-                I'm not crying you are.
+                I'm not here yet.
             </p>
         </div>
         <div class="card card--bg-orange-white">
             <header class="card__header">
                 <i class="fa-brands fa-reddit redIcon" alt="reddit"></i>
                 <div>
-                    <h3>Troll dungeon dweller</h3>
+                    <h3>dungeon dweller</h3>
                     <p>Verified dungeon dweller.</p>
                 </div>
             </header>
             <p class="card__lead">
-                Never have I once seen the light of day.
+                Never have I had ice cream.
             </p>
             <p class="card__quote">
                 What's a vegetable.
@@ -111,8 +111,7 @@
     </div>
     <footer>
         <h3>
-            Shout outs to Traversy Media on Youtube and front end mentor
-            <a href="https://www.youtube.com/watch?v=0xMQfnTU6oo">CSS Crash Course</a>
+          Find me at the link.
         </h3>
     </footer>
 </body>
