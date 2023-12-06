@@ -1,7 +1,7 @@
 # Programming Language Classification Project
 
 ## Introduction
-This project aims to analyze modern programming languages within the Chomsky hierarchy. It focuses on understanding the theoretical underpinnings of programming paradigms through formal language theory.
+This project analyzes modern programming languages within the Chomsky hierarchy, focusing on the theoretical underpinnings of programming paradigms through formal language theory.
 
 ## Features
 - Classification of programming language snippets into Chomsky hierarchy types.
@@ -12,13 +12,13 @@ This project aims to analyze modern programming languages within the Chomsky hie
 - NLTK library
 
 ## Usage
-- Run the main script to process code snippets:
+Run the main script to process code snippets:
 
 `python mainSnippetClassification.py`
 
-- or using hte unit test
+- or using the unit test
 
-`python allsnippetsunittest.py`
+`python UnitTest.py`
 
 ## Testing
 - To run tests, use the following command:

@@ -62,15 +62,37 @@ def read_snippets(filename):
 
 
 def tokenize_code(code):
+    """
+    Tokenize the given code using NLTK's word tokenizer.
+
+    >>> tokenize_code("def foo(): pass")
+    ['def', 'foo', '(', ')', ':', 'pass']
+    """
     return word_tokenize(code)
 
 
 def check_type3(tokens):
+    """
+    Check if the tokens match a Type 3 pattern (Regular/Finite State).
+
+    >>> check_type3(['for', 'i', 'in', 'range', '(', '10', ')'])
+    True
+    >>> check_type3(['def', 'foo', '(', ')', ':', 'pass'])
+    False
+    """
     keywords = ["for", "while", "if"]
     return any(kw in tokens for kw in keywords)
 
 
 def check_type2(tokens):
+    """
+    Check if the tokens match a Type 2 pattern (Context-Free).
+
+    >>> check_type2(['def', 'foo', '(', ')', ':', 'pass'])
+    True
+    >>> check_type2(['print', '(', '"Hello"', ')'])
+    False
+    """
     # Check 1: Nested constructs
     if check_nested_conditionals(tokens) > 1:
         return True
@@ -87,6 +109,14 @@ def check_type2(tokens):
 
 
 def classify_code(tokens):
+    """
+    Classify the given tokens into a Chomsky hierarchy type.
+
+    >>> classify_code(['def', 'foo', '(', ')', ':', 'pass'])
+    'Context-Free'
+    >>> classify_code(['print', '(', '"Hello"', ')'])
+    'Regular/Finite State'
+    """
     # First check for context-free (Type 2) patterns
     if check_type2(tokens):
         return "Context-Free"
@@ -98,17 +128,28 @@ def classify_code(tokens):
 
 
 def log_result(snippet, type):
+    """
+    Log the classification result of a snippet.
+
+    Note: This function does not return anything and is used for logging purposes.
+    """
     logging.info(f"{snippet} -> {type}")
 
 
 def process_snippets(filename):
+    """
+    Process snippets from a file and classify them.
+
+    Note: This function is used to process and classify code snippets from a given file.
+    """
     snippets = read_snippets(filename)
     results = []
     for snippet in snippets:
         tokens = tokenize_code(snippet)
         type = classify_code(tokens)
         print(type)
-        log_result(snippet, type)
+        # Note for most logging use the attched Unit test.
+        # log_result(snippet, type)
         results.append((snippet, type))
     return results
 
@@ -121,6 +162,8 @@ def main():
 if __name__ == "__main__":
     """
     python -m doctest -v mainSnippetClassification.py
+    Main function to process and classify code snippets.
 
+    Note: Modify 'filename' as needed to point to the desired test file.    
     """
     main()
