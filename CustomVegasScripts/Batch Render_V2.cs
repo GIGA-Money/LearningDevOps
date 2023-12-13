@@ -248,17 +248,31 @@ public class EntryPoint
     RadioButton RenderSelectionButton;
 
     /// <summary>
-    /// quite a number of changesr were made for the dialog window, the ability to size, anchoring UI elements.
-    /// this fixed many issues that were having trouble with scaling, the orignal would actually not show the "OK" button,
-    /// OK was only activated if you hit enter and nothing else.
+    /// Displays a customizable batch render dialog with improved UI scaling and layout management.
+    /// This version introduces a resizable window with anchored UI elements, ensuring consistent visibility
+    /// and accessibility across different resolutions and DPI settings. The "OK" button behavior has been fixed
+    /// to be visible and responsive to mouse clicks, addressing the issue where it previously responded only to the Enter key.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The dialog result indicating how the dialog was closed.</returns>
     DialogResult ShowBatchRenderDialog()
     {
         const float HiDPI_RES_LIMIT = 1.37f; // based on the original HiDPI changes for DVP-667
         float dpiScale = 1.0f;
 
         Form dlog = new Form();
+        // Set the form's properties here
+        dlog.BackColor = Color.FromArgb(32, 32, 32); // after this line
+
+        TextBox FileNameBox = new TextBox();
+        // Set FileNameBox properties here
+        FileNameBox.BackColor = Color.FromArgb(64, 64, 64); // after this line
+        FileNameBox.ForeColor = Color.White; // after this line
+
+        Button BrowseButton = new Button();
+        // Set BrowseButton properties here
+        BrowseButton.FlatStyle = FlatStyle.Flat; // for a flat style
+        BrowseButton.ForeColor = Color.White; // after this line
+        BrowseButton.BackColor = Color.FromArgb(64, 64, 64); // after this line
 
         // Determine if DPI scale adjustments need to be made (ref. DVP-667)
         Graphics g = ((Control)dlog).CreateGraphics();
@@ -272,11 +286,10 @@ public class EntryPoint
         }
 
         dlog.Text = "Batch Render V2";
-        //dlog.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
         //changed from fixed dialog size in the windows froms to sizable.
         dlog.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
         //Now I have to use a minimum size on the dlog so it won't be made into a shrunk up 
-        dlog.MinimumSize = new Size(720, 480);
+        dlog.MinimumSize = new Size(940, 480);
         dlog.MaximizeBox = false;
         dlog.StartPosition = FormStartPosition.CenterScreen;
         dlog.Width = (int)(720 * dpiScale);
@@ -303,16 +316,6 @@ public class EntryPoint
         TemplateTree.Width = dlog.Width - 35;
         TemplateTree.Top = BrowseButton.Bottom + 10;
         TemplateTree.Height = (int)(300 * dpiScale);
-        /*
-        Enable Auto-Scaling: To ensure that the controls within your dialog resize 
-        and reposition appropriately when the dialog is resized, you should enable auto-scaling. 
-        This can be done using the Anchor and Dock properties of the controls.
-
-        For example, if you want a control to maintain its position relative to the right edge of the form when the form is resized, 
-        you would set its Anchor property to Right.
-        Similarly, if you want a control to expand in width when the form is resized, 
-        you would set its Anchor property to Left, Right.
-        */
         TemplateTree.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom;
         TemplateTree.CheckBoxes = true;
         TemplateTree.AfterCheck += new TreeViewEventHandler(this.HandleTreeViewCheck);
@@ -320,6 +323,7 @@ public class EntryPoint
 
         int buttonTop = TemplateTree.Bottom + 16;
         int buttonsLeft = dlog.Width - (2 * (buttonWidth + 10));
+
         //anchor adjusting is done in the "AddRadioControl" method.
         RenderProjectButton = AddRadioControl(dlog,
                                               "Render Project",
@@ -355,7 +359,6 @@ public class EntryPoint
         Button cancelButton = new Button();
         cancelButton.Text = "Cancel";
         cancelButton.Left = dlog.Width - (1 * (buttonWidth + 20)) - buttonRightGap;
-        //cancelButton.Left = okButton.Width + buttonRightGap;
         cancelButton.Top = buttonTop;
         cancelButton.Width = buttonWidth;
         cancelButton.Height = cancelButton.Font.Height + 12;
@@ -367,6 +370,25 @@ public class EntryPoint
         dlog.Height = titleBarHeight + okButton.Bottom + 8;
         dlog.ShowInTaskbar = false;
 
+        FileNameBox.ForeColor = Color.White;
+        FileNameBox.BackColor = Color.FromArgb(32, 32, 32);
+        FileNameBox.Width = (TemplateTree.Width / 2);
+        FileNameBox.Left = (dlog.ClientSize.Width - FileNameBox.Width) / 2;
+        FileNameBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        BrowseButton.Top = FileNameBox.Top + (FileNameBox.Height - BrowseButton.Height) / 2;
+        BrowseButton.Left = FileNameBox.Right + 4;
+        BrowseButton.ForeColor = Color.White;
+        BrowseButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        dlog.Controls.Add(BrowseButton); // Add button first
+        dlog.Controls.Add(FileNameBox); // Add text box second
+
+        RenderProjectButton.ForeColor = Color.White;
+        RenderSelectionButton.ForeColor = Color.White;
+        RenderRegionsButton.ForeColor = Color.White;
+        okButton.ForeColor = Color.White;
+        cancelButton.ForeColor = Color.White;
+        TemplateTree.ForeColor = Color.White;
+        TemplateTree.BackColor = Color.FromArgb(32, 32, 32);
         FillTemplateTree();
 
         return dlog.ShowDialog(myVegas.MainWindow);
@@ -379,6 +401,7 @@ public class EntryPoint
         label.Text = labelName + ":";
         label.Left = left;
         label.Top = top + 4;
+        label.ForeColor = Color.White;
         dlog.Controls.Add(label);
 
         TextBox textbox = new TextBox();
@@ -393,37 +416,40 @@ public class EntryPoint
     }
 
     /// <summary>
-    /// Adjusted the method to use anchors for the radio buttons, 
-    /// and aligns the label prperly to the radio button (lefts centered)
+    /// Creates and adds a radio button with a label to the form. The radio button is anchored to the bottom-left, allowing it to stay aligned when resizing.
+    /// The label is positioned to the left of the radio button and centered vertically.
     /// </summary>
-    /// <param name="dlog"></param>
-    /// <param name="labelName"></param>
-    /// <param name="left"></param>
-    /// <param name="top"></param>
-    /// <param name="enabled"></param>
-    /// <returns></returns>
+    /// <param name="dlog">The form to which the radio button and label are added.</param>
+    /// <param name="labelName">The text for the label.</param>
+    /// <param name="left">The left position of the label.</param>
+    /// <param name="top">The top position where the radio button should be placed.</param>
+    /// <param name="enabled">Indicates whether the radio button is enabled.</param>
+    /// <returns>The created radio button.</returns>
     RadioButton AddRadioControl(Form dlog, String labelName, int left, int top, bool enabled)
     {
-        Label label = new Label();
-        label.AutoSize = true;
-        label.Text = labelName;
-        label.Left = left;
-        // label.Top = top + 4;
-        //label.Top = radioButton.Top + (radioButton.Height - label.Height) / 2;
-        label.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-        label.Enabled = enabled;
+        Label label = new Label
+        {
+            AutoSize = true,
+            Text = labelName,
+            Left = left,
+            Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
+            Enabled = enabled,
+        };
+        label.ForeColor = Color.White;
         dlog.Controls.Add(label);
 
-        RadioButton radiobutton = new RadioButton();
-        radiobutton.Left = label.Right;
-        radiobutton.Width = 36;
-        radiobutton.Top = top;
-        radiobutton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left; // Set the anchor
-        radiobutton.Enabled = enabled;
-        label.Top = radiobutton.Top + (radiobutton.Height - label.Height) / 2;
-        dlog.Controls.Add(radiobutton);
+        RadioButton radioButton = new RadioButton
+        {
+            Left = label.Right + 5, // Added spacing for visual separation
+            Width = 36, // Consider adjusting or calculating width based on text or container size
+            Top = top,
+            Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
+            Enabled = enabled
+        };
+        label.Top = radioButton.Top + (radioButton.Height - label.Height) / 2; // Vertically center label
+        dlog.Controls.Add(radioButton);
 
-        return radiobutton;
+        return radioButton;
     }
 
     static Guid[] TheDefaultTemplateRenderClasses =
