@@ -2,7 +2,7 @@
  * Sample script that performs batch renders with GUI for selecting
  * render templates.
  *
- * Revision Date: Jun. 28, 2006.
+ * Revision Date: 12/13/23 - iAmGiG edit via GitHub.
  **/
 using System;
 using System.IO;
@@ -341,8 +341,8 @@ public class EntryPoint
                                               buttonTop,
                                               (0 != myVegas.Project.Regions.Count));
 
-        AddSeparator(dlog, RenderProjectButton, RenderProjectButton.Top);
-        AddSeparator(dlog, RenderSelectionButton, RenderSelectionButton.Top);
+        // AddSeparator(dlog, RenderProjectButton, RenderProjectButton.Top);
+        // AddSeparator(dlog, RenderSelectionButton, RenderSelectionButton.Top);
         RenderProjectButton.Checked = true;
 
         int buttonRightGap = (int)(dpiScale * 5);
