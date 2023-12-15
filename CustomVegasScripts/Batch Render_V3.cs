@@ -31,6 +31,7 @@ public class EntryPoint
         Project = 0,
         Selection,
         Regions,
+        SelectedRegions,
     }
 
     ArrayList SelectedTemplates = new ArrayList();
@@ -67,10 +68,26 @@ public class EntryPoint
             {
                 renderMode = RenderMode.Selection;
             }
+            else if (RenderRegionsInSelection.Checked)
+            {
+                renderMode = RenderMode.SelectedRegions;
+            }
             DoBatchRender(SelectedTemplates, outputFilePath, renderMode);
         }
     }
 
+    /// <summary>
+    /// This script for Vegas Pro enables advanced batch rendering. 
+    /// It allows rendering based on specific modes like regions, selected regions, and entire projects. 
+    /// The script intelligently handles file naming, output directory creation, and user prompts for file overwriting. 
+    /// In 'Selected Regions' mode, it discerns and renders only the regions falling within a defined selection. 
+    /// The script features robust error handling and is optimized for user convenience, 
+    ///     ensuring efficient and targeted rendering processes.
+    /// </summary>
+    /// <param name="selectedTemplates"></param>
+    /// <param name="basePath"></param>
+    /// <param name="renderMode"></param>
+    /// <exception cref="ApplicationException"></exception>
     void DoBatchRender(ArrayList selectedTemplates, String basePath, RenderMode renderMode)
     {
         String outputDirectory = Path.GetDirectoryName(basePath);
@@ -104,31 +121,55 @@ public class EntryPoint
                                            FixFileName(renderItem.Renderer.FileTypeName) +
                                            "_" +
                                            FixFileName(renderItem.Template.Name));
-
-            //check to see if this is a QuickTime file...if so, file length cannot exceed 59 characters
             if (RenderMode.Regions == renderMode)
             {
                 int regionIndex = 0;
                 foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions)
                 {
+                    if (renderMode == RenderMode.Regions)
+                    {
+                        // Build region filename with directory and index
+                        String regionFilename = BuildRegionFilename(outputDirectory, baseFileName, renderItem, region, regionIndex);
+
+                        RenderArgs args = new RenderArgs();
+                        args.OutputFile = regionFilename;
+                        args.RenderTemplate = renderItem.Template;
+                        args.Start = region.Position;
+                        args.Length = region.Length;
+                        renders.Add(args);
+                        regionIndex++;
+                    }
+
+                }
+            //check to see if this is a QuickTime file...if so, file length cannot exceed 59 characters
+           else if (RenderMode.SelectedRegions == renderMode)
+                {
+                    int regionIndex = 0;
+                    // Calculate selection bounds once
+                    int startTime = (int)(myVegas.Selection.Start.Nanos / 1000000);
+                    int endTime = (int)(myVegas.Selection.End.Nanos / 1000000);
+
+                }
+                foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions)
+                {
                     // Extract filename without extension
                     String strippedFilename = Path.GetFileNameWithoutExtension(filename);
+                    // Check for overlap if "Selected Regions" mode
+                    //bool overlaps = region.Position >= startTime && region.Position + region.Length <= endTime;
+                    bool overlap = (region.Position >= startTime && region.Position < endTime) || (region.Position + region.Length > startTime && region.Position + region.Length <= endTime);
+                    if (overlaps || renderMode == RenderMode.Regions)
+                    {
+                        // Build region filename with directory and index
+                        String regionFilename = BuildRegionFilename(outputDirectory, baseFileName, renderItem, region, regionIndex);
 
-                    // Build region filename with directory and index
-                    String regionFilename = Path.Combine(outputDirectory,
-                    String.Format("{0}_{1}_{2}{3}",
-                    regionIndex.ToString("D3"),
-                    Path.GetFileNameWithoutExtension(baseFileName),
-                    FixFileName(region.Label),
-                    renderItem.Extension));
-
-                    RenderArgs args = new RenderArgs();
-                    args.OutputFile = regionFilename;
-                    args.RenderTemplate = renderItem.Template;
-                    args.Start = region.Position;
-                    args.Length = region.Length;
-                    renders.Add(args);
-                    regionIndex++;
+                        RenderArgs args = new RenderArgs();
+                        args.OutputFile = regionFilename;
+                        args.RenderTemplate = renderItem.Template;
+                        args.Start = region.Position;
+                        args.Length = region.Length;
+                        renders.Add(args);
+                        regionIndex++;
+                    }
                 }
             }
             else
@@ -142,32 +183,33 @@ public class EntryPoint
             }
         }
 
-        // validate all files and propmt for overwrites
+        // Validate all files and prompt for overwrites
         foreach (RenderArgs args in renders)
         {
+            /*
+            This code checks if the output file for each render already exists. 
+            If a file exists and the user has not chosen to overwrite, 
+            it prompts the user to either overwrite the existing files or cancel the operation. 
+            If the user chooses to cancel, 
+            the process is halted. If the user opts to overwrite, 
+            it sets a flag to overwrite all subsequent existing files without prompting.
+            */
             ValidateFilePath(args.OutputFile);
-            if (!OverwriteExistingFiles)
+            if (!OverwriteExistingFiles && File.Exists(args.OutputFile))
             {
-                if (File.Exists(args.OutputFile))
+                string msg = "File(s) exists. Do you want to overwrite them?";
+                DialogResult rs = MessageBox.Show(msg, "Overwrite files?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (DialogResult.Cancel == rs)
                 {
-                    String msg = "File(s) exists. Do you want to overwrite them?";
-                    DialogResult rs;
-                    rs = MessageBox.Show(msg,
-                                                         "Overwrite files?",
-                                                         MessageBoxButtons.OKCancel,
-                                                         MessageBoxIcon.Warning,
-                                                         MessageBoxDefaultButton.Button2);
-                    if (DialogResult.Cancel == rs)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        OverwriteExistingFiles = true;
-                    }
+                    return; // Exit the loop and method if the user selects Cancel
+                }
+                else
+                {
+                    OverwriteExistingFiles = true; // Set to true to overwrite files in subsequent iterations
                 }
             }
         }
+
 
         // perform all renders.  The Render method returns a member of the RenderStatus enumeration.  If it is
         // anything other than OK, exit the loop.
@@ -179,6 +221,15 @@ public class EntryPoint
             }
         }
 
+    }
+    private String BuildRegionFilename(String outputDirectory, String baseFileName, RenderItem renderItem, ScriptPortal.Vegas.Region region, int regionIndex)
+    {
+        return Path.Combine(outputDirectory,
+            String.Format("{0}_{1}_{2}{3}",
+            regionIndex.ToString("D3"),
+            Path.GetFileNameWithoutExtension(baseFileName),
+            FixFileName(region.Label),
+            renderItem.Extension));
     }
 
     RenderStatus DoRender(RenderArgs args)
@@ -246,7 +297,6 @@ public class EntryPoint
     RadioButton RenderProjectButton;
     RadioButton RenderRegionsButton;
     RadioButton RenderSelectionButton;
-
     RadioButton RenderRegionsInSelection;
 
     /// <summary>
@@ -287,7 +337,7 @@ public class EntryPoint
                 dpiScale = 1.0f;
         }
 
-        dlog.Text = "Batch Render V2";
+        dlog.Text = "Batch Render V3";
         //changed from fixed dialog size in the windows froms to sizable.
         dlog.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
         //Now I have to use a minimum size on the dlog so it won't be made into a shrunk up 
@@ -344,10 +394,10 @@ public class EntryPoint
                                               (0 != myVegas.Project.Regions.Count));
 
         RenderRegionsInSelection = AddRadioControl(dlog,
-                                                "Render Regions in Selection",
-                                                RenderRegionsButton.Right,
-                                                buttonTop,
-                                                (0 != myVegas.Project.Regions))
+                                                    "Render Regions in Selection",
+                                                    RenderRegionsButton.Right,
+                                                    buttonTop,
+                                                    (0 != myVegas.Project.Regions))
 
         // AddSeparator(dlog, RenderProjectButton, RenderProjectButton.Top);
         // AddSeparator(dlog, RenderSelectionButton, RenderSelectionButton.Top);
