@@ -38,20 +38,28 @@ public class EntryPoint
 
     ArrayList SelectedTemplates = new ArrayList();
 
+    /// <summary>
+    /// transport.SelectionStart provides the start point of the selection in the Vegas timeline.
+    /// transport.SelectionLength gives the length of the selection from the start point.
+    /// selectionStart.Add(selectionLength) calculates the end time of the selection.
+    /// Both start and end times are converted to milliseconds for further operations in your script.
+    /// </summary>
+    /// <param name="vegas"></param>
     public void FromVegas(Vegas vegas)
     {
         myVegas = vegas;
-        // try
-        // {
-        //     // Assuming Project class has properties to get the start and end time of the selection
-        //     Timecode selectionStart = myVegas.Project.SelectionStart;
-        //     Timecode selectionEnd = myVegas.Project.SelectionEnd;
+        try
+        {
+            // Access the transport control to get selection information
+            TransportControl transport = myVegas.Transport;
+            Timecode selectionStart = transport.SelectionStart;
+            Timecode selectionLength = transport.SelectionLength;
 
-        //     // Convert Timecodes to milliseconds if necessary
-        //     // Note: You need to confirm if the Timecode class has a method like ToMilliseconds()
-        //     int startTime = (int)(selectionStart.ToMilliseconds());
-        //     int endTime = (int)(selectionEnd.ToMilliseconds());
-        // }
+            // Convert Timecodes to milliseconds if necessary
+            int startTime = (int)(selectionStart.ToMilliseconds());
+            int endTime = (int)(selectionStart.Add(selectionLength).ToMilliseconds());
+
+        }
 
 
 
@@ -156,31 +164,31 @@ public class EntryPoint
             //check to see if this is a QuickTime file...if so, file length cannot exceed 59 characters
             else if (RenderMode.SelectedRegions == renderMode)
             {
-                // int regionIndex = 0;
-                // // Calculate selection bounds once
-                // // int startTime = (int)(myVegas.Selection.Start.Nanos / 1000000);
-                // // int endTime = (int)(myVegas.Selection.End.Nanos / 1000000);
-                // foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions)
-                // {
-                //     // Extract filename without extension
-                //     String strippedFilename = Path.GetFileNameWithoutExtension(filename);
-                //     // Check for overlap if "Selected Regions" mode
-                //     bool overlaps = false;
-                //     overlaps = (region.Position.Nanos / 1000000 >= startTime && region.Position.Nanos / 1000000 < endTime) ||
-                //     (region.Position.Nanos / 1000000 + region.Length.Nanos / 1000000 > startTime && region.Position.Nanos / 1000000 + region.Length.Nanos / 1000000 <= endTime);
-                //     if (overlaps)
-                //     {
-                //         // Build region filename with directory and index
-                //         String regionFilename = BuildRegionFilename(outputDirectory, baseFileName, renderItem, region, regionIndex);
-                //         RenderArgs args = new RenderArgs();
-                //         args.OutputFile = regionFilename;
-                //         args.RenderTemplate = renderItem.Template;
-                //         args.Start = region.Position;
-                //         args.Length = region.Length;
-                //         renders.Add(args);
-                //         regionIndex++;
-                //     }
-                // }
+                int regionIndex = 0;
+                // Calculate selection bounds once
+                // int startTime = (int)(myVegas.Selection.Start.Nanos / 1000000);
+                // int endTime = (int)(myVegas.Selection.End.Nanos / 1000000);
+                foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions)
+                {
+                    // Extract filename without extension
+                    String strippedFilename = Path.GetFileNameWithoutExtension(filename);
+                    // Check for overlap if "Selected Regions" mode
+                    bool overlaps = false;
+                    overlaps = (region.Position.Nanos / 1000000 >= startTime && region.Position.Nanos / 1000000 < endTime) ||
+                    (region.Position.Nanos / 1000000 + region.Length.Nanos / 1000000 > startTime && region.Position.Nanos / 1000000 + region.Length.Nanos / 1000000 <= endTime);
+                    if (overlaps)
+                    {
+                        // Build region filename with directory and index
+                        String regionFilename = BuildRegionFilename(outputDirectory, baseFileName, renderItem, region, regionIndex);
+                        RenderArgs args = new RenderArgs();
+                        args.OutputFile = regionFilename;
+                        args.RenderTemplate = renderItem.Template;
+                        args.Start = region.Position;
+                        args.Length = region.Length;
+                        renders.Add(args);
+                        regionIndex++;
+                    }
+                }
             }
             else
             {
@@ -802,9 +810,18 @@ public class EntryPoint
 
     void HandleFormClosing(Object sender, FormClosingEventArgs args)
     {
-        Form dlg = sender as Form;
-        if (null == dlg) return;
-        if (DialogResult.OK != dlg.DialogResult) return;
+        // Check if the sender is actually the form you expect
+        if (sender is not Form dlg)
+        {
+            return; // No need to proceed if it's not the expected form
+        }
+        if (dlg.DialogResult != DialogResult.OK)
+        {
+            return; // User canceled, so no further processing needed
+        }
+        // Form dlg = sender as Form;
+        // if (null == dlg) return;
+        // if (DialogResult.OK != dlg.DialogResult) return;
         String outputFilePath = FileNameBox.Text;
         try
         {
