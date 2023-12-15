@@ -12,8 +12,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
-
+// using ScriptPortal.Vegas.Timecode;
 using ScriptPortal.Vegas;
+using ScriptPortal.Vegas.Selection;
 
 public class EntryPoint
 {
@@ -126,42 +127,36 @@ public class EntryPoint
                 int regionIndex = 0;
                 foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions)
                 {
-                    if (renderMode == RenderMode.Regions)
-                    {
-                        // Build region filename with directory and index
-                        String regionFilename = BuildRegionFilename(outputDirectory, baseFileName, renderItem, region, regionIndex);
-
-                        RenderArgs args = new RenderArgs();
-                        args.OutputFile = regionFilename;
-                        args.RenderTemplate = renderItem.Template;
-                        args.Start = region.Position;
-                        args.Length = region.Length;
-                        renders.Add(args);
-                        regionIndex++;
-                    }
-
+                    // Build region filename with directory and index
+                    String regionFilename = BuildRegionFilename(outputDirectory, baseFileName, renderItem, region, regionIndex);
+                    RenderArgs args = new RenderArgs();
+                    args.OutputFile = regionFilename;
+                    args.RenderTemplate = renderItem.Template;
+                    args.Start = region.Position;
+                    args.Length = region.Length;
+                    renders.Add(args);
+                    regionIndex++;
                 }
-                //check to see if this is a QuickTime file...if so, file length cannot exceed 59 characters
-                else if (RenderMode.SelectedRegions == renderMode)
-                {
-                    int regionIndex = 0;
-                    // Calculate selection bounds once
-                    int startTime = (int)(myVegas.Selection.Start.Nanos / 1000000);
-                    int endTime = (int)(myVegas.Selection.End.Nanos / 1000000);
-
-                }
+            }
+            //check to see if this is a QuickTime file...if so, file length cannot exceed 59 characters
+            else if (RenderMode.SelectedRegions == renderMode)
+            {
+                int regionIndex = 0;
+                // Calculate selection bounds once
+                int startTime = (int)(myVegas.Selection.Start.Nanos / 1000000);
+                int endTime = (int)(myVegas.Selection.End.Nanos / 1000000);
                 foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions)
                 {
                     // Extract filename without extension
                     String strippedFilename = Path.GetFileNameWithoutExtension(filename);
                     // Check for overlap if "Selected Regions" mode
-                    //bool overlaps = region.Position >= startTime && region.Position + region.Length <= endTime;
-                    bool overlap = (region.Position >= startTime && region.Position < endTime) || (region.Position + region.Length > startTime && region.Position + region.Length <= endTime);
-                    if (overlaps || renderMode == RenderMode.Regions)
+                    bool overlaps = false;
+                    overlaps = (region.Position.Nanos / 1000000 >= startTime && region.Position.Nanos / 1000000 < endTime) ||
+                    (region.Position.Nanos / 1000000 + region.Length.Nanos / 1000000 > startTime && region.Position.Nanos / 1000000 + region.Length.Nanos / 1000000 <= endTime);
+                    if (overlaps)
                     {
                         // Build region filename with directory and index
                         String regionFilename = BuildRegionFilename(outputDirectory, baseFileName, renderItem, region, regionIndex);
-
                         RenderArgs args = new RenderArgs();
                         args.OutputFile = regionFilename;
                         args.RenderTemplate = renderItem.Template;
@@ -215,7 +210,6 @@ public class EntryPoint
             {
                 // Log the exception or show an error message to the user
                 MessageBox.Show("An error occurred during file validation: " + ex.Message + "\nRecommendation: Check file access permissions and ensure the file is not in use.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                dlog.Close();
                 return;
             }
         }
@@ -431,7 +425,7 @@ public class EntryPoint
                                                     "Render Regions in Selection",
                                                     RenderRegionsButton.Right,
                                                     buttonTop,
-                                                    (myVegas.Project.Regions.Count > 0 && myVegas.SelectionLength > 0));
+                                                    (myVegas.Project.Regions.Count > 0 && myVegas.SelectionLength.Nanos > 0));
 
         RenderProjectButton.Checked = true;
 
