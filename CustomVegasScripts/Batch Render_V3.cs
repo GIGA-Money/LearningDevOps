@@ -141,8 +141,8 @@ public class EntryPoint
                     }
 
                 }
-            //check to see if this is a QuickTime file...if so, file length cannot exceed 59 characters
-           else if (RenderMode.SelectedRegions == renderMode)
+                //check to see if this is a QuickTime file...if so, file length cannot exceed 59 characters
+                else if (RenderMode.SelectedRegions == renderMode)
                 {
                     int regionIndex = 0;
                     // Calculate selection bounds once
@@ -431,7 +431,7 @@ public class EntryPoint
                                                     "Render Regions in Selection",
                                                     RenderRegionsButton.Right,
                                                     buttonTop,
-                                                    (myVegas.Project.Regions.Count > 0 && myVegas.SelectionLength > 0))
+                                                    (myVegas.Project.Regions.Count > 0 && myVegas.SelectionLength > 0));
 
         RenderProjectButton.Checked = true;
 
