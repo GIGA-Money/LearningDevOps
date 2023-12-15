@@ -186,39 +186,57 @@ public class EntryPoint
         // Validate all files and prompt for overwrites
         foreach (RenderArgs args in renders)
         {
-            /*
-            This code checks if the output file for each render already exists. 
-            If a file exists and the user has not chosen to overwrite, 
-            it prompts the user to either overwrite the existing files or cancel the operation. 
-            If the user chooses to cancel, 
-            the process is halted. If the user opts to overwrite, 
-            it sets a flag to overwrite all subsequent existing files without prompting.
-            */
-            ValidateFilePath(args.OutputFile);
-            if (!OverwriteExistingFiles && File.Exists(args.OutputFile))
+            try
             {
-                string msg = "File(s) exists. Do you want to overwrite them?";
-                DialogResult rs = MessageBox.Show(msg, "Overwrite files?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                if (DialogResult.Cancel == rs)
+                /*
+                This code checks if the output file for each render already exists. 
+                If a file exists and the user has not chosen to overwrite, 
+                it prompts the user to either overwrite the existing files or cancel the operation. 
+                If the user chooses to cancel, 
+                the process is halted. If the user opts to overwrite, 
+                it sets a flag to overwrite all subsequent existing files without prompting.
+                */
+                ValidateFilePath(args.OutputFile);
+                if (!OverwriteExistingFiles && File.Exists(args.OutputFile))
                 {
-                    return; // Exit the loop and method if the user selects Cancel
+                    string msg = "File(s) exists. Do you want to overwrite them?";
+                    DialogResult rs = MessageBox.Show(msg, "Overwrite files?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                    if (DialogResult.Cancel == rs)
+                    {
+                        return; // Exit the loop and method if the user selects Cancel
+                    }
+                    else
+                    {
+                        OverwriteExistingFiles = true; // Set to true to overwrite files in subsequent iterations
+                    }
                 }
-                else
-                {
-                    OverwriteExistingFiles = true; // Set to true to overwrite files in subsequent iterations
-                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or show an error message to the user
+                MessageBox.Show("An error occurred during file validation: " + ex.Message + "\nRecommendation: Check file access permissions and ensure the file is not in use.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dlog.Close();
+                return;
             }
         }
 
 
         // perform all renders.  The Render method returns a member of the RenderStatus enumeration.  If it is
         // anything other than OK, exit the loop.
-        foreach (RenderArgs args in renders)
+        try
         {
-            if (RenderStatus.Canceled == DoRender(args))
+            foreach (RenderArgs args in renders)
             {
-                break;
+                if (RenderStatus.Canceled == DoRender(args))
+                {
+                    break; // Stop rendering if the user cancels
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("An error occurred during rendering: " + ex.Message, "Rendering Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            // Optionally, log the exception details for further analysis
         }
 
     }
@@ -234,32 +252,48 @@ public class EntryPoint
 
     RenderStatus DoRender(RenderArgs args)
     {
-        RenderStatus status = myVegas.Render(args);
-        switch (status)
+        try
         {
-            case RenderStatus.Complete:
-            case RenderStatus.Canceled:
-                break;
-            case RenderStatus.Failed:
-            default:
-                StringBuilder msg = new StringBuilder("Render failed:\n");
-                msg.Append("\n    file name: ");
-                msg.Append(args.OutputFile);
-                msg.Append("\n    Template: ");
-                msg.Append(args.RenderTemplate.Name);
-                throw new ApplicationException(msg.ToString());
+            RenderStatus status = myVegas.Render(args);
+            switch (status)
+            {
+                case RenderStatus.Complete:
+                case RenderStatus.Canceled:
+                    break;
+                case RenderStatus.Failed:
+                default:
+                    StringBuilder msg = new StringBuilder("Render failed:\n");
+                    msg.Append("\n    file name: ");
+                    msg.Append(args.OutputFile);
+                    msg.Append("\n    Template: ");
+                    msg.Append(args.RenderTemplate.Name);
+                    throw new ApplicationException(msg.ToString());
+            }
+            return status;
         }
-        return status;
+        catch (Exception ex)
+        {
+            MessageBox.Show("A rendering error occurred: " + ex.Message, "Rendering Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return RenderStatus.Failed; // Indicate failure
+        }
     }
 
     String FixFileName(String name)
     {
-        const Char replacementChar = '-';
-        foreach (char badChar in Path.GetInvalidFileNameChars())
+        try
         {
-            name = name.Replace(badChar, replacementChar);
+            const Char replacementChar = '-';
+            foreach (char badChar in Path.GetInvalidFileNameChars())
+            {
+                name = name.Replace(badChar, replacementChar);
+            }
+            return name;
         }
-        return name;
+        catch (Exception ex)
+        {
+            MessageBox.Show("An error occurred while fixing the file name: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return "default_filename"; // or handle differently as needed 
+        }
     }
 
     void ValidateFilePath(String filePath)
@@ -392,15 +426,13 @@ public class EntryPoint
                                               RenderSelectionButton.Right,
                                               buttonTop,
                                               (0 != myVegas.Project.Regions.Count));
-
+        //The last parameter (0 != myVegas.Project.Regions) is intended to enable the button if there are regions in the project.
         RenderRegionsInSelection = AddRadioControl(dlog,
                                                     "Render Regions in Selection",
                                                     RenderRegionsButton.Right,
                                                     buttonTop,
-                                                    (0 != myVegas.Project.Regions))
+                                                    (myVegas.Project.Regions.Count > 0 && myVegas.SelectionLength > 0))
 
-        // AddSeparator(dlog, RenderProjectButton, RenderProjectButton.Top);
-        // AddSeparator(dlog, RenderSelectionButton, RenderSelectionButton.Top);
         RenderProjectButton.Checked = true;
 
         int buttonRightGap = (int)(dpiScale * 5);
@@ -692,27 +724,34 @@ public class EntryPoint
 
     void HandleBrowseClick(Object sender, EventArgs args)
     {
-        SaveFileDialog saveFileDialog = new SaveFileDialog();
-        saveFileDialog.Filter = "All Files (*.*)|*.*";
-        saveFileDialog.CheckPathExists = true;
-        saveFileDialog.AddExtension = false;
-        if (null != FileNameBox)
+        try
         {
-            String filename = FileNameBox.Text;
-            String initialDir = Path.GetDirectoryName(filename);
-            if (Directory.Exists(initialDir))
-            {
-                saveFileDialog.InitialDirectory = initialDir;
-            }
-            saveFileDialog.DefaultExt = Path.GetExtension(filename);
-            saveFileDialog.FileName = Path.GetFileNameWithoutExtension(filename);
-        }
-        if (System.Windows.Forms.DialogResult.OK == saveFileDialog.ShowDialog())
-        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "All Files (*.*)|*.*";
+            saveFileDialog.CheckPathExists = true;
+            saveFileDialog.AddExtension = false;
             if (null != FileNameBox)
             {
-                FileNameBox.Text = Path.GetFullPath(saveFileDialog.FileName);
+                String filename = FileNameBox.Text;
+                String initialDir = Path.GetDirectoryName(filename);
+                if (Directory.Exists(initialDir))
+                {
+                    saveFileDialog.InitialDirectory = initialDir;
+                }
+                saveFileDialog.DefaultExt = Path.GetExtension(filename);
+                saveFileDialog.FileName = Path.GetFileNameWithoutExtension(filename);
             }
+            if (System.Windows.Forms.DialogResult.OK == saveFileDialog.ShowDialog())
+            {
+                if (null != FileNameBox)
+                {
+                    FileNameBox.Text = Path.GetFullPath(saveFileDialog.FileName);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("An error occurred while browsing for files: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 
