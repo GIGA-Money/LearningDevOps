@@ -14,7 +14,8 @@ using System.Diagnostics;
 using System.Windows.Forms;
 // using ScriptPortal.Vegas.Timecode;
 using ScriptPortal.Vegas;
-using ScriptPortal.Vegas.Selection;
+//using ScriptPortal.Vegas.VegasProSelection;
+//using ScriptPortal.Vegas.Selection;
 
 public class EntryPoint
 {
@@ -40,6 +41,20 @@ public class EntryPoint
     public void FromVegas(Vegas vegas)
     {
         myVegas = vegas;
+        // try
+        // {
+        //     // Assuming Project class has properties to get the start and end time of the selection
+        //     Timecode selectionStart = myVegas.Project.SelectionStart;
+        //     Timecode selectionEnd = myVegas.Project.SelectionEnd;
+
+        //     // Convert Timecodes to milliseconds if necessary
+        //     // Note: You need to confirm if the Timecode class has a method like ToMilliseconds()
+        //     int startTime = (int)(selectionStart.ToMilliseconds());
+        //     int endTime = (int)(selectionEnd.ToMilliseconds());
+        // }
+
+
+
 
         String projectPath = myVegas.Project.FilePath;
         if (String.IsNullOrEmpty(projectPath))
@@ -141,31 +156,31 @@ public class EntryPoint
             //check to see if this is a QuickTime file...if so, file length cannot exceed 59 characters
             else if (RenderMode.SelectedRegions == renderMode)
             {
-                int regionIndex = 0;
-                // Calculate selection bounds once
-                int startTime = (int)(myVegas.Selection.Start.Nanos / 1000000);
-                int endTime = (int)(myVegas.Selection.End.Nanos / 1000000);
-                foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions)
-                {
-                    // Extract filename without extension
-                    String strippedFilename = Path.GetFileNameWithoutExtension(filename);
-                    // Check for overlap if "Selected Regions" mode
-                    bool overlaps = false;
-                    overlaps = (region.Position.Nanos / 1000000 >= startTime && region.Position.Nanos / 1000000 < endTime) ||
-                    (region.Position.Nanos / 1000000 + region.Length.Nanos / 1000000 > startTime && region.Position.Nanos / 1000000 + region.Length.Nanos / 1000000 <= endTime);
-                    if (overlaps)
-                    {
-                        // Build region filename with directory and index
-                        String regionFilename = BuildRegionFilename(outputDirectory, baseFileName, renderItem, region, regionIndex);
-                        RenderArgs args = new RenderArgs();
-                        args.OutputFile = regionFilename;
-                        args.RenderTemplate = renderItem.Template;
-                        args.Start = region.Position;
-                        args.Length = region.Length;
-                        renders.Add(args);
-                        regionIndex++;
-                    }
-                }
+                // int regionIndex = 0;
+                // // Calculate selection bounds once
+                // // int startTime = (int)(myVegas.Selection.Start.Nanos / 1000000);
+                // // int endTime = (int)(myVegas.Selection.End.Nanos / 1000000);
+                // foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions)
+                // {
+                //     // Extract filename without extension
+                //     String strippedFilename = Path.GetFileNameWithoutExtension(filename);
+                //     // Check for overlap if "Selected Regions" mode
+                //     bool overlaps = false;
+                //     overlaps = (region.Position.Nanos / 1000000 >= startTime && region.Position.Nanos / 1000000 < endTime) ||
+                //     (region.Position.Nanos / 1000000 + region.Length.Nanos / 1000000 > startTime && region.Position.Nanos / 1000000 + region.Length.Nanos / 1000000 <= endTime);
+                //     if (overlaps)
+                //     {
+                //         // Build region filename with directory and index
+                //         String regionFilename = BuildRegionFilename(outputDirectory, baseFileName, renderItem, region, regionIndex);
+                //         RenderArgs args = new RenderArgs();
+                //         args.OutputFile = regionFilename;
+                //         args.RenderTemplate = renderItem.Template;
+                //         args.Start = region.Position;
+                //         args.Length = region.Length;
+                //         renders.Add(args);
+                //         regionIndex++;
+                //     }
+                // }
             }
             else
             {
@@ -472,6 +487,7 @@ public class EntryPoint
         RenderProjectButton.ForeColor = Color.White;
         RenderSelectionButton.ForeColor = Color.White;
         RenderRegionsButton.ForeColor = Color.White;
+        RenderRegionsInSelection.ForeColor = Color.White;
         okButton.ForeColor = Color.White;
         cancelButton.ForeColor = Color.White;
         TemplateTree.ForeColor = Color.White;
