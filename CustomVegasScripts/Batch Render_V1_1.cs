@@ -3,11 +3,20 @@
  * render templates.
  *
  * Revision Date: Dec. 16, 2023
+ * iAmGiG edit via GitHub.
+ * Change log includes but is not limited to:
  * GiG's edit branch.
  * This is a revised and forked version from my initial attempts adjusted
  * the ui to my liking but to many changes to quickly resulted in not having
  * enough well structured adjustments before changes got out of hand.
  **/
+/**
+Change log includes but is not limited to:
+Updated the UI to have anchores on all the UI elements.
+Updated the colors to be "darkmode" like, no toggle, but that could be done.
+Refactored the addtextcontrol and addradiocontrol methods.
+Using the "BuildRegionFilename" method to begin the refactor of "DoBatchRender".
+**/
 using System;
 using System.IO;
 using System.Text;
@@ -119,12 +128,7 @@ public class EntryPoint
                     String strippedFilename = Path.GetFileNameWithoutExtension(filename);
 
                     // Build region filename with directory and index
-                    String regionFilename = Path.Combine(outputDirectory,
-                    String.Format("{0}_{1}_{2}{3}",
-                    regionIndex.ToString("D3"),
-                    Path.GetFileNameWithoutExtension(baseFileName),
-                    FixFileName(region.Label),
-                    renderItem.Extension));
+                    String regionFilename = BuildRegionFilename(outputDirectory, baseFileName, renderItem, region, regionIndex);
 
                     RenderArgs args = new RenderArgs();
                     args.OutputFile = regionFilename;
@@ -183,6 +187,15 @@ public class EntryPoint
             }
         }
 
+    }
+    private String BuildRegionFilename(String outputDirectory, String baseFileName, RenderItem renderItem, ScriptPortal.Vegas.Region region, int regionIndex)
+    {
+        return Path.Combine(outputDirectory,
+            String.Format("{0}_{1}_{2}{3}",
+            regionIndex.ToString("D3"),
+            Path.GetFileNameWithoutExtension(baseFileName),
+            FixFileName(region.Label),
+            renderItem.Extension));
     }
 
     RenderStatus DoRender(RenderArgs args)
@@ -250,13 +263,26 @@ public class EntryPoint
     RadioButton RenderProjectButton;
     RadioButton RenderRegionsButton;
     RadioButton RenderSelectionButton;
-
+    /// <summary>
+    /// Displays a customizable batch render dialog with improved UI scaling and layout management.
+    /// This version introduces a resizable window with anchored UI elements, ensuring consistent visibility
+    /// and accessibility across different resolutions and DPI settings. The "OK" button behavior has been fixed
+    /// to be visible and responsive to mouse clicks, addressing the issue where it previously responded only to the Enter key.
+    /// </summary>
+    /// <returns>The dialog result indicating how the dialog was closed.</returns>
     DialogResult ShowBatchRenderDialog()
     {
         const float HiDPI_RES_LIMIT = 1.37f; // based on the original HiDPI changes for DVP-667
         float dpiScale = 1.0f;
 
         Form dlog = new Form();
+        BrowseButton = new Button();
+        TemplateTree = new TreeView();
+        Button okButton = new Button();
+        Button cancelButton = new Button();
+        int titleBarHeight = dlog.Height - dlog.ClientSize.Height;
+        int buttonWidth = (int)(100 * dpiScale);
+        int fileNameWidth = (int)(480 * dpiScale);
 
         // Determine if DPI scale adjustments need to be made (ref. DVP-667)
         Graphics g = ((Control)dlog).CreateGraphics();
@@ -269,33 +295,44 @@ public class EntryPoint
                 dpiScale = 1.0f;
         }
 
-        dlog.Text = "Batch Render with Custom naming";
-        dlog.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+        // Set the form's properties.
+        dlog.BackColor = Color.FromArgb(32, 32, 32);
+        dlog.Text = "Batch Render V1.1";
+        dlog.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+        dlog.MinimumSize = new Size(840, 480);
         dlog.MaximizeBox = false;
         dlog.StartPosition = FormStartPosition.CenterScreen;
         dlog.Width = (int)(720 * dpiScale);
+        dlog.Height = titleBarHeight + okButton.Bottom + 8;
+        dlog.ShowInTaskbar = false;
         dlog.FormClosing += this.HandleFormClosing;
 
-        int titleBarHeight = dlog.Height - dlog.ClientSize.Height;
-        int buttonWidth = (int)(100 * dpiScale);
-        int fileNameWidth = (int)(480 * dpiScale);
-
         FileNameBox = AddTextControl(dlog, "Base File Name", titleBarHeight + 6, fileNameWidth, 16, defaultBasePath);
+        FileNameBox.BackColor = Color.FromArgb(64, 64, 64);
+        FileNameBox.ForeColor = Color.White;
+        FileNameBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
-        BrowseButton = new Button();
+        // Set BrowsButton's properties.
+        BrowseButton.FlatStyle = FlatStyle.Flat; // for a flat style
+        BrowseButton.ForeColor = Color.White; // after this line
+        BrowseButton.BackColor = Color.FromArgb(64, 64, 64); // after this line
         BrowseButton.Left = FileNameBox.Right + 4;
         BrowseButton.Top = FileNameBox.Top - 2;
         BrowseButton.Width = buttonWidth;
         BrowseButton.Height = BrowseButton.Font.Height + 14;
+        BrowseButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
         BrowseButton.Text = "Browse...";
         BrowseButton.Click += new EventHandler(this.HandleBrowseClick);
         dlog.Controls.Add(BrowseButton);
 
-        TemplateTree = new TreeView();
+        // Set TemplateTree's properties.
         TemplateTree.Left = 10;
         TemplateTree.Width = dlog.Width - 35;
         TemplateTree.Top = BrowseButton.Bottom + 10;
         TemplateTree.Height = (int)(300 * dpiScale);
+        TemplateTree.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom;
+        TemplateTree.ForeColor = Color.White;
+        TemplateTree.BackColor = Color.FromArgb(32, 32, 32);
         TemplateTree.CheckBoxes = true;
         TemplateTree.AfterCheck += new TreeViewEventHandler(this.HandleTreeViewCheck);
         dlog.Controls.Add(TemplateTree);
@@ -303,6 +340,7 @@ public class EntryPoint
         int buttonTop = TemplateTree.Bottom + 16;
         int buttonsLeft = dlog.Width - (2 * (buttonWidth + 10));
 
+        // Set RadioControl Button's properties.
         RenderProjectButton = AddRadioControl(dlog,
                                               "Render Project",
                                               6,
@@ -318,26 +356,33 @@ public class EntryPoint
                                               RenderSelectionButton.Right,
                                               buttonTop,
                                               (0 != myVegas.Project.Regions.Count));
+        RenderProjectButton.ForeColor = Color.White;
+        RenderSelectionButton.ForeColor = Color.White;
+        RenderRegionsButton.ForeColor = Color.White;
         RenderProjectButton.Checked = true;
 
         int buttonRightGap = (int)(dpiScale * 5);
 
-        Button okButton = new Button();
+        // Set okButton's properties.
         okButton.Text = "OK";
         okButton.Left = dlog.Width - (2 * (buttonWidth + 20)) - buttonRightGap;
         okButton.Top = buttonTop;
         okButton.Width = buttonWidth;
         okButton.Height = okButton.Font.Height + 12;
+        okButton.ForeColor = Color.White;
+        okButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
         dlog.AcceptButton = okButton;
         dlog.Controls.Add(okButton);
 
-        Button cancelButton = new Button();
+        // set cancleButton's properties.
         cancelButton.Text = "Cancel";
         cancelButton.Left = dlog.Width - (1 * (buttonWidth + 20)) - buttonRightGap;
         cancelButton.Top = buttonTop;
         cancelButton.Width = buttonWidth;
         cancelButton.Height = cancelButton.Font.Height + 12;
+        cancelButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        cancelButton.ForeColor = Color.White;
         cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
         dlog.CancelButton = cancelButton;
         dlog.Controls.Add(cancelButton);
@@ -352,19 +397,25 @@ public class EntryPoint
 
     TextBox AddTextControl(Form dlog, String labelName, int left, int width, int top, String defaultValue)
     {
-        Label label = new Label();
-        label.AutoSize = true;
-        label.Text = labelName + ":";
-        label.Left = left;
-        label.Top = top + 4;
+        Label label = new Label
+        {
+            AutoSize = true,
+            Text = labelName + ":",
+            Left = left,
+            Top = top + 4,
+            ForeColor = Color.White
+        };
+
         dlog.Controls.Add(label);
 
-        TextBox textbox = new TextBox();
-        textbox.Multiline = false;
-        textbox.Left = label.Right;
-        textbox.Top = top;
-        textbox.Width = width - (label.Width);
-        textbox.Text = defaultValue;
+        TextBox textbox = new TextBox
+        {
+            Multiline = false,
+            Left = label.Right,
+            Top = top,
+            Width = width - (label.Width),
+            Text = defaultValue
+        };
         dlog.Controls.Add(textbox);
 
         return textbox;
@@ -372,19 +423,27 @@ public class EntryPoint
 
     RadioButton AddRadioControl(Form dlog, String labelName, int left, int top, bool enabled)
     {
-        Label label = new Label();
-        label.AutoSize = true;
-        label.Text = labelName;
-        label.Left = left;
-        label.Top = top + 4;
-        label.Enabled = enabled;
+        Label label = new Label
+        {
+            AutoSize = true,
+            Text = labelName,
+            Left = left,
+            Top = top + 4,
+            ForeColor = Color.White,
+            Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
+            Enabled = enabled
+        };
         dlog.Controls.Add(label);
 
-        RadioButton radiobutton = new RadioButton();
-        radiobutton.Left = label.Right;
-        radiobutton.Width = 36;
-        radiobutton.Top = top;
-        radiobutton.Enabled = enabled;
+        RadioButton radiobutton = new RadioButton
+        {
+            Left = label.Right,
+            Width = 36,
+            Top = top,
+            Enabled = enabled,
+            Anchor = AnchorStyles.Bottom | AnchorStyles.Left
+        };
+
         dlog.Controls.Add(radiobutton);
 
         return radiobutton;
