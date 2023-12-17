@@ -11,7 +11,7 @@
  * enough well structured adjustments before changes got out of hand.
  **/
 /**
-Change log includes but is not limited to:
+Change log (V1.1) includes but is not limited to:
 Updated the UI to have anchores on all the UI elements.
 Updated the colors to be "darkmode" like, no toggle, but that could be done.
 Refactored the addtextcontrol and addradiocontrol methods.
